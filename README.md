@@ -16,6 +16,12 @@ npm run build
 
 # Package addon
 npm run bundle
+
+# Check code formatting
+npm run format:check
+
+# Format code
+npm run format:write
 ```
 
 ## Features
