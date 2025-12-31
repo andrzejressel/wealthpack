@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`bossa-reader > should generate transaction log 1`] = `
+[
+  {
+    "activityDate": "2024-12-02",
+    "activityType": "WITHDRAWAL",
+    "amount": 1956,
+    "assetId": "$CASH-PLN",
+    "comment": "Zwrot nadpłaty - przekroczony limit wpłat na IKE/IKZE XXXXXX",
+    "currency": "PLN",
+    "isDraft": false,
+  },
+  {
+    "activityDate": "2024-12-02",
+    "activityType": "DEPOSIT",
+    "amount": 1956,
+    "assetId": "$CASH-PLN",
+    "comment": "Przelew do DM BOŚ",
+    "currency": "PLN",
+    "isDraft": false,
+  },
+  {
+    "activityDate": "2024-11-04",
+    "activityType": "BUY",
+    "amount": 4355.13,
+    "assetId": "VUAA.L",
+    "comment": "Vanguard S&P 500 UCITS ETF acc nr ZXXXXXXXXXXX",
+    "currency": "PLN",
+    "isDraft": false,
+    "quantity": 10,
+    "unitPrice": 434.1128,
+  },
+]
+`;

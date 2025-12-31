@@ -1,0 +1,23 @@
+﻿mBank S.A. Bankowość Detaliczna;
+		Skrytka Pocztowa 2108;
+		90-959 Łódź 2;
+		www.mBank.pl;
+		mLinia: 801 300 800;
+		+48 (42) 6 300 800;
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+DATADATADATA
+
+      
+#Data operacji;#Opis operacji;#Rachunek;#Kategoria;#Kwota;#Saldo po operacji;
+2025-01-01;"CLEAR ACCOUNT                ";"eKonto oszczędnościowe XXXX ... XXXX";"Podatki";-11,55 PLN;-;
+2024-12-31;"PODATEK OD ODSETEK KAPITAŁOWYCH                ";"eKonto oszczędnościowe XXXX ... XXXX";"Podatki";-2,72 PLN;11,55 PLN;
+2024-12-30;"KAPITALIZACJA ODSETEK                ";"eKonto oszczędnościowe XXXX ... XXXX";"Odsetki";14,27 PLN;14,27 PLN;

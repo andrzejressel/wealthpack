@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`transaction-reader > should generate transaction log 1`] = `
+[
+  {
+    "activityDate": "2024-05-14",
+    "activityType": "ADD_HOLDING",
+    "assetId": "EDO0534",
+    "currency": "PLN",
+    "isDraft": false,
+    "quantity": 80,
+    "unitPrice": 100,
+  },
+  {
+    "activityDate": "2025-08-03",
+    "activityType": "REMOVE_HOLDING",
+    "assetId": "EDO0534",
+    "currency": "PLN",
+    "isDraft": false,
+    "quantity": 70,
+    "unitPrice": 100,
+  },
+]
+`;
