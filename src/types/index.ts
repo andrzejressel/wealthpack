@@ -9,12 +9,11 @@
 //   onSettingsChange: (settings: Record<string, any>) => void;
 // };
 
+import { polishBondsReader } from "../service/transaction-log/transaction-reader";
+import { mBankReader } from "../service/banks/mbank/mbank-reader";
+import { bossaReader } from "../service/brokers/bossa/bossa-reader";
 
-import {polishBondsReader} from "../service/transaction-log/transaction-reader";
-import {mBankReader} from "../service/banks/mbank/mbank-reader";
-import {bossaReader} from "../service/brokers/bossa/bossa-reader";
-
-export type ActivityType = 'BUY' | 'SELL' | 'DEPOSIT' | 'WITHDRAWAL' | "ADD_HOLDING" | "REMOVE_HOLDING";
+export type ActivityType = "BUY" | "SELL" | "DEPOSIT" | "WITHDRAWAL" | "ADD_HOLDING" | "REMOVE_HOLDING";
 
 export interface Transaction {
     id?: string;
@@ -33,14 +32,14 @@ export interface Transaction {
 export enum SupportedService {
     POLISH_BONDS = "POLISH_BONDS",
     MBANK = "MBANK",
-    BOSSA = "BOSSA"
+    BOSSA = "BOSSA",
 }
 
 export function stringToSupportedService(value: string): SupportedService {
     switch (value) {
-        case 'POLISH_BONDS':
+        case "POLISH_BONDS":
             return SupportedService.POLISH_BONDS;
-        case 'MBANK':
+        case "MBANK":
             return SupportedService.MBANK;
         case "BOSSA":
             return SupportedService.BOSSA;
@@ -63,11 +62,11 @@ export function supportedServiceToDescription(value: SupportedService): string {
 export function getServiceImplementation(value: SupportedService): Reader {
     switch (value) {
         case SupportedService.POLISH_BONDS:
-            return polishBondsReader
+            return polishBondsReader;
         case SupportedService.MBANK:
-            return mBankReader
+            return mBankReader;
         case SupportedService.BOSSA:
-            return bossaReader
+            return bossaReader;
     }
 }
 

@@ -7,6 +7,7 @@ This is a **Wealthfolio addon** for importing Polish government bonds (obligacje
 ## Tech Stack
 
 ### Core Technologies
+
 - **Language**: TypeScript (ES2020 target, ESNext modules)
 - **UI Framework**: React 19
 - **Build Tool**: Vite 7
@@ -14,6 +15,7 @@ This is a **Wealthfolio addon** for importing Polish government bonds (obligacje
 - **Styling**: TailwindCSS 4
 
 ### Key Libraries
+
 - **@wealthfolio/addon-sdk** - SDK for building Wealthfolio addons
 - **@wealthfolio/ui** - UI component library (Button, Card, Select, Icons, etc.)
 - **@tanstack/react-query** - Server state management
@@ -21,6 +23,7 @@ This is a **Wealthfolio addon** for importing Polish government bonds (obligacje
 - **motion** (Framer Motion) - Animations
 
 ### Development Dependencies
+
 - **vitest** - Testing framework
 - **typescript** - Type checking
 - **@vitejs/plugin-react** - React plugin for Vite
@@ -52,37 +55,42 @@ src/
 ## Testing
 
 ### Testing Framework
+
 - **Vitest** - Fast unit testing framework (Vite-native)
 
 ### Running Tests
+
 ```bash
 pnpm test          # Run tests in watch mode. DO NOT USE IN AGENT
 pnpm test --run    # Run tests once
 ```
 
 ### Test Organization
+
 - Tests are co-located with source files using `.test.ts` suffix
 - Test assets stored in `__test-assets__/` directories
 - Snapshots stored in `__snapshots__/` directories
 
 ### Testing Patterns Used
+
 - **Snapshot testing** for complex object comparisons (bond values, transactions)
 - **File-based testing** - loading real XLS files from `__test-assets__/`
 - **describe/it** pattern for test organization
 
 ### Example Test Structure
-```typescript
-import { describe, it, expect } from 'vitest';
-import * as fs from 'fs';
-import * as path from 'path';
 
-describe('service-name', () => {
+```typescript
+import { describe, it, expect } from "vitest";
+import * as fs from "fs";
+import * as path from "path";
+
+describe("service-name", () => {
     const loadTestFile = (): Uint8Array => {
-        const filePath = path.join(__dirname, '__test-assets__/file.xls');
+        const filePath = path.join(__dirname, "__test-assets__/file.xls");
         return new Uint8Array(fs.readFileSync(filePath));
     };
 
-    it('should do something', () => {
+    it("should do something", () => {
         const result = myFunction(loadTestFile());
         expect(result).toMatchSnapshot();
     });
@@ -97,6 +105,7 @@ pnpm lint          # Alias for type-check
 ```
 
 ### TypeScript Configuration
+
 - Strict mode enabled
 - JSX: react-jsx (automatic runtime)
 - Module resolution: Bundler
@@ -104,25 +113,30 @@ pnpm lint          # Alias for type-check
 ## Code Style & Conventions
 
 ### File Naming
+
 - React components: `kebab-case.tsx`
 - Services/utilities: `kebab-case.ts`
 - Tests: `*.test.ts`
 
 ### Import Style
+
 - Named imports preferred
 - Path aliases not configured (use relative imports)
 
 ### Types
+
 - Use interfaces for data structures
 - Use `type` for unions and computed types
 - Export types from `lib/index.ts` or `types/index.ts`
 
 ### React Patterns
+
 - Functional components with hooks
 - `useState` and `useQuery` for state management
 - Props destructuring in function parameters
 
 ### New brokers
+
 - Create a new service under `service/brokers/`
 - Implement transaction reader and parser
 - Add unit tests in the same directory
@@ -146,4 +160,3 @@ pnpm bundle        # Clean, build, and package addon
 4. **External React** - React is externalized in production build (provided by host)
 5. **Currency** - All amounts are in PLN (Polish Złoty)
 6. **Dates** - Bond dates come from Excel as JS Date objects
-

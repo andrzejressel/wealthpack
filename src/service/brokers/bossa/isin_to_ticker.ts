@@ -1,4 +1,3 @@
-
 const isin_to_ticker = new Map([
     ["AGP8696W1045", "SVA"],
     ["AN8068571086", "SLB"],
@@ -5439,7 +5438,6 @@ const isin_to_ticker = new Map([
     ["ZAE000013181", "VALT.L"],
     ["ZAE000255360", "OMU.L"],
     ["ZAE000296554", "TGA.L"],
-    ["ZM0000000201", "ZAM.L"]
+    ["ZM0000000201", "ZAM.L"],
 ]);
 export default isin_to_ticker;
-    
