@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist
+build
+.cache
+
+# Test artifacts
+coverage
+
+# Misc
+.git
+.idea
+*.min.js
+*.min.css
