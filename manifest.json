@@ -1,19 +1,19 @@
 {
-  "id": "wealthpack",
-  "name": "wealthpack",
-  "version": "1.0.0",
-  "description": "A Wealthfolio addon for wealthpack",
-  "author": "Anonymous",
-  "main": "dist/addon.js",
-  "sdkVersion": "1.0.0",
-  "enabled": true,
-  "permissions": [
-    {
-      "category": "ui",
-      "functions": ["sidebar.addItem"],
-      "purpose": "Add navigation items to the sidebar"
-    }
-  ],
-  "keywords": ["wealthfolio", "addon"],
-  "license": "MIT"
+    "id": "wealthpack",
+    "name": "wealthpack",
+    "version": "1.0.0",
+    "description": "A Wealthfolio addon for wealthpack",
+    "author": "Anonymous",
+    "main": "dist/addon.js",
+    "sdkVersion": "1.0.0",
+    "enabled": true,
+    "permissions": [
+        {
+            "category": "ui",
+            "functions": ["sidebar.addItem"],
+            "purpose": "Add navigation items to the sidebar"
+        }
+    ],
+    "keywords": ["wealthfolio", "addon"],
+    "license": "MIT"
 }

@@ -1,5 +1,5 @@
 import * as XLSX from "xlsx";
-import {ActivityType, Reader, Transaction} from "../../types";
+import { ActivityType, Reader, Transaction } from "../../types";
 
 function readFile(fileData: ArrayBuffer | Uint8Array): Transaction[] {
     const workbook = XLSX.read(fileData);
@@ -15,29 +15,29 @@ function readFile(fileData: ArrayBuffer | Uint8Array): Transaction[] {
         throw new Error(`Failed to get worksheet [${workbook.SheetNames[0]}]`);
     }
 
-    const data: any[][] = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+    const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
     let transactions: Transaction[] = [];
 
     for (let rowId = 1; rowId < data.length; rowId++) {
         const row = data[rowId];
         let [date, type, bondId, , bondSeries, numberOfBonds, , status] = row;
 
-        if (status !== 'zrealizowana') {
+        if (status !== "zrealizowana") {
             continue;
         }
 
         let partialTransaction: { activityType: ActivityType };
 
-        if (type === 'zakup papierów') {
+        if (type === "zakup papierów") {
             partialTransaction = {
-                activityType: 'ADD_HOLDING',
+                activityType: "ADD_HOLDING",
             };
-        } else if (type === 'dyspozycja przedterminowego wykupu') {
+        } else if (type === "dyspozycja przedterminowego wykupu") {
             partialTransaction = {
-                activityType: 'REMOVE_HOLDING',
+                activityType: "REMOVE_HOLDING",
             };
         } else {
-            continue
+            continue;
         }
 
         transactions.push({
@@ -46,8 +46,8 @@ function readFile(fileData: ArrayBuffer | Uint8Array): Transaction[] {
             assetId: bondId,
             quantity: numberOfBonds,
             unitPrice: 100,
-            currency: 'PLN',
-            isDraft: false
+            currency: "PLN",
+            isDraft: false,
         });
     }
 
@@ -55,5 +55,5 @@ function readFile(fileData: ArrayBuffer | Uint8Array): Transaction[] {
 }
 
 export const polishBondsReader: Reader = {
-    readFile
+    readFile,
 };

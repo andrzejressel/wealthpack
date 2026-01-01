@@ -1,48 +1,51 @@
 {
-  "name": "wealthpack-addon",
-  "version": "1.0.0",
-  "description": "A Wealthfolio addon",
-  "type": "module",
-  "main": "dist/addon.js",
-  "keywords": [
-    "wealthfolio",
-    "addon"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "dev:server": "wealthfolio dev",
-    "clean": "rm -rf dist",
-    "package": "mkdir -p dist && zip -r dist/$npm_package_name-$npm_package_version.zip manifest.json dist/ assets/ README.md",
-    "bundle": "pnpm clean && pnpm build && pnpm package",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "tsc --noEmit --watch",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "5.90.12",
-    "@wealthfolio/addon-sdk": "^2.0.0",
-    "@wealthfolio/ui": "^2.0.0",
-    "motion": "^12.23.26",
-    "papaparse": "^5.5.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "@types/node": "^20.0.0",
-    "@types/papaparse": "^5.5.2",
-    "@types/react": "^19.1.1",
-    "@types/react-dom": "^19.1.1",
-    "@vitejs/plugin-react": "^5.0.2",
-    "@wealthfolio/addon-dev-tools": "^2.0.0",
-    "rollup-plugin-external-globals": "^0.13.0",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2",
-    "vite": "^7.1.5",
-    "vitest": "^4.0.13"
-  }
+    "name": "wealthpack-addon",
+    "version": "1.0.0",
+    "description": "A Wealthfolio addon",
+    "type": "module",
+    "main": "dist/addon.js",
+    "keywords": [
+        "wealthfolio",
+        "addon"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite build --watch",
+        "dev:server": "wealthfolio dev",
+        "clean": "rm -rf dist",
+        "package": "mkdir -p dist && zip -r dist/$npm_package_name-$npm_package_version.zip manifest.json dist/ assets/ README.md",
+        "bundle": "pnpm clean && pnpm build && pnpm package",
+        "type-check": "tsc --noEmit",
+        "type-check:watch": "tsc --noEmit --watch",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "format:check": "prettier --check .",
+        "format:write": "prettier --write ."
+    },
+    "dependencies": {
+        "@tanstack/react-query": "5.90.12",
+        "@wealthfolio/addon-sdk": "^2.0.0",
+        "@wealthfolio/ui": "^2.0.0",
+        "motion": "^12.23.26",
+        "papaparse": "^5.5.3",
+        "react": "^19.1.1",
+        "react-dom": "^19.1.1",
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.1.13",
+        "@types/node": "^20.0.0",
+        "@types/papaparse": "^5.5.2",
+        "@types/react": "^19.1.1",
+        "@types/react-dom": "^19.1.1",
+        "@vitejs/plugin-react": "^5.0.2",
+        "@wealthfolio/addon-dev-tools": "^2.0.0",
+        "prettier": "^3.4.2",
+        "rollup-plugin-external-globals": "^0.13.0",
+        "tailwindcss": "^4.1.13",
+        "typescript": "^5.9.2",
+        "vite": "^7.1.5",
+        "vitest": "^4.0.13"
+    }
 }

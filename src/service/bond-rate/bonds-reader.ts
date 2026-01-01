@@ -1,4 +1,4 @@
-import * as XLSX from 'xlsx';
+import * as XLSX from "xlsx";
 
 export interface BondId {
     value: string;
@@ -45,13 +45,10 @@ class ValueGenerator {
             const yearEndDate = new Date(yearStartDate);
             yearEndDate.setFullYear(yearStartDate.getFullYear() + 1);
 
-            const daysInYear = Math.floor(
-                (yearEndDate.getTime() - yearStartDate.getTime()) / (1000 * 60 * 60 * 24)
-            );
+            const daysInYear = Math.floor((yearEndDate.getTime() - yearStartDate.getTime()) / (1000 * 60 * 60 * 24));
 
             for (let day = 1; day <= daysInYear; day++) {
-                const additionalValue =
-                    currentValue * (day / daysInYear) * annualReturnRate;
+                const additionalValue = currentValue * (day / daysInYear) * annualReturnRate;
                 const todayValue = currentValue + additionalValue;
                 values.push(this.twoDecimalPlaces(todayValue));
             }
@@ -67,11 +64,7 @@ class ValueGenerator {
     }
 }
 
-function extractBondType(
-    workbook: XLSX.WorkBook,
-    bondType: string,
-    bondLengthInYears: number
-): Map<string, Bond> {
+function extractBondType(workbook: XLSX.WorkBook, bondType: string, bondLengthInYears: number): Map<string, Bond> {
     const bonds = new Map<string, Bond>();
 
     const worksheet = workbook.Sheets[bondType];
@@ -80,7 +73,7 @@ function extractBondType(
     }
 
     // Convert worksheet to array of arrays
-    const data: any[][] = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+    const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
     // First two rows are headers, start from row index 2
     for (let rowId = 2; rowId < data.length; rowId++) {
@@ -89,7 +82,7 @@ function extractBondType(
 
         const [, , , saleStart, saleEnd, , , , , ...rates] = row;
 
-        const bondId: BondId = {value: firstCell};
+        const bondId: BondId = { value: firstCell };
 
         const buyoutDate = new Date(saleStart);
         buyoutDate.setFullYear(saleStart.getFullYear() + bondLengthInYears);
@@ -100,9 +93,9 @@ function extractBondType(
         for (let i = 0; i < bondLengthInYears; i++) {
             const rate = rates[i];
             if (!rate) {
-                continue
+                continue;
             }
-            if (typeof rate !== 'number') {
+            if (typeof rate !== "number") {
                 throw new Error(`Cannot extract yearly return from cell [${rate}], row id: [${rowId}], column: [${i}]`);
             }
             const roundedValue = Math.round(rate * 100000) / 100000;
@@ -124,10 +117,10 @@ function extractBondType(
 }
 
 export function readBonds(fileData: ArrayBuffer | Uint8Array): AllBonds {
-    const workbook = XLSX.read(fileData, {cellDates: true});
+    const workbook = XLSX.read(fileData, { cellDates: true });
 
-    const edo = extractBondType(workbook, 'EDO', 10);
-    const rod = extractBondType(workbook, 'ROD', 12);
+    const edo = extractBondType(workbook, "EDO", 10);
+    const rod = extractBondType(workbook, "ROD", 12);
 
-    return {edo, rod};
+    return { edo, rod };
 }

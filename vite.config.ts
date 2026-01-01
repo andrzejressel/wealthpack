@@ -1,43 +1,42 @@
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'vitest/config';
-import externalGlobals from 'rollup-plugin-external-globals';
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vitest/config";
+import externalGlobals from "rollup-plugin-external-globals";
 
 export default defineConfig({
     plugins: [react(), tailwindcss()],
     define: {
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        "process.env.NODE_ENV": JSON.stringify("production"),
     },
     build: {
         lib: {
-            entry: 'src/addon.tsx',
-            fileName: () => 'addon.js',
-            formats: ['es'],
+            entry: "src/addon.tsx",
+            fileName: () => "addon.js",
+            formats: ["es"],
         },
         rollupOptions: {
-            external: ['react', 'react-dom'],
+            external: ["react", "react-dom"],
             plugins: [
                 externalGlobals({
-                    react: 'React',
-                    'react-dom': 'ReactDOM'
-                })
+                    react: "React",
+                    "react-dom": "ReactDOM",
+                }),
             ],
             output: {
                 globals: {
-                    react: 'React',
-                    'react-dom': 'ReactDOM',
+                    react: "React",
+                    "react-dom": "ReactDOM",
                 },
             },
         },
-        outDir: 'dist',
+        outDir: "dist",
         minify: "esbuild",
         sourcemap: "inline",
         watch: {
             // Watch mode options for better hot reloading
-            include: ['src/**'],
-            exclude: ['node_modules/**', 'dist/**']
-        }
+            include: ["src/**"],
+            exclude: ["node_modules/**", "dist/**"],
+        },
     },
-    test: {
-    }
+    test: {},
 });
