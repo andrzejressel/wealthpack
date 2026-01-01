@@ -47412,7 +47412,7 @@ function sm(e) {
 function MW(e) {
   switch (e) {
     case "POLISH_BONDS":
-      return "Polish Bonds";
+      return "Polish Bonds (Obligacje Skarbowe)";
     case "MBANK":
       return "mBank";
     case "BOSSA":
