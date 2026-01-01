@@ -2,12 +2,12 @@
 
 exports[`bonds-reader > ValueGenerator > should calculate daily bond values like ROD1235 1`] = `
 {
-  "buyoutDate": 2035-11-30T23:00:00.000Z,
+  "buyoutDate": 2035-12-01T00:00:00.000Z,
   "id": {
     "value": "ROD1235",
   },
-  "initialDate": 2023-11-30T23:00:00.000Z,
-  "saleEnd": 2023-12-30T23:00:00.000Z,
+  "initialDate": 2023-12-01T00:00:00.000Z,
+  "saleEnd": 2023-12-31T00:00:00.000Z,
   "values": [
     100,
     100.02,
@@ -747,12 +747,12 @@ exports[`bonds-reader > ValueGenerator > should calculate daily bond values like
 
 exports[`bonds-reader > readBonds > should read EDO0125 bond correctly 1`] = `
 {
-  "buyoutDate": 2024-12-31T23:00:00.000Z,
+  "buyoutDate": 2025-01-01T00:00:00.000Z,
   "id": {
     "value": "EDO0125",
   },
-  "initialDate": 2014-12-31T23:00:00.000Z,
-  "saleEnd": 2015-01-30T23:00:00.000Z,
+  "initialDate": 2015-01-01T00:00:00.000Z,
+  "saleEnd": 2015-01-31T00:00:00.000Z,
   "values": [
     100,
     100.01,
@@ -4414,12 +4414,12 @@ exports[`bonds-reader > readBonds > should read EDO0125 bond correctly 1`] = `
 
 exports[`bonds-reader > readBonds > should read EDO0535 bond correctly 1`] = `
 {
-  "buyoutDate": 2035-04-30T22:00:00.000Z,
+  "buyoutDate": 2035-05-01T00:00:00.000Z,
   "id": {
     "value": "EDO0535",
   },
-  "initialDate": 2025-04-30T22:00:00.000Z,
-  "saleEnd": 2025-05-30T22:00:00.000Z,
+  "initialDate": 2025-05-01T00:00:00.000Z,
+  "saleEnd": 2025-05-31T00:00:00.000Z,
   "values": [
     100,
     100.02,
@@ -4793,12 +4793,12 @@ exports[`bonds-reader > readBonds > should read EDO0535 bond correctly 1`] = `
 
 exports[`bonds-reader > readBonds > should read EDO1224 bond correctly 1`] = `
 {
-  "buyoutDate": 2024-11-30T23:00:00.000Z,
+  "buyoutDate": 2024-12-01T00:00:00.000Z,
   "id": {
     "value": "EDO1224",
   },
-  "initialDate": 2014-11-30T23:00:00.000Z,
-  "saleEnd": 2014-12-30T23:00:00.000Z,
+  "initialDate": 2014-12-01T00:00:00.000Z,
+  "saleEnd": 2014-12-31T00:00:00.000Z,
   "values": [
     100,
     100.01,
@@ -8460,12 +8460,12 @@ exports[`bonds-reader > readBonds > should read EDO1224 bond correctly 1`] = `
 
 exports[`bonds-reader > readBonds > should read ROD1235 bond correctly 1`] = `
 {
-  "buyoutDate": 2035-11-30T23:00:00.000Z,
+  "buyoutDate": 2035-12-01T00:00:00.000Z,
   "id": {
     "value": "ROD1235",
   },
-  "initialDate": 2023-11-30T23:00:00.000Z,
-  "saleEnd": 2023-12-30T23:00:00.000Z,
+  "initialDate": 2023-12-01T00:00:00.000Z,
+  "saleEnd": 2023-12-31T00:00:00.000Z,
   "values": [
     100,
     100.02,

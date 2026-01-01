@@ -38,5 +38,8 @@ export default defineConfig({
             exclude: ["node_modules/**", "dist/**"],
         },
     },
-    test: {},
+    test: {
+        globals: true,
+        globalSetup: "./src/test-globals.ts",
+    },
 });
