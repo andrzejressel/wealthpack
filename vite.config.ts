@@ -6,7 +6,7 @@ import externalGlobals from "rollup-plugin-external-globals";
 export default defineConfig({
     plugins: [react(), tailwindcss()],
     define: {
-        "process.env.NODE_ENV": JSON.stringify("production"),
+        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV ? process.env.NODE_ENV : "production"),
     },
     build: {
         lib: {
@@ -43,5 +43,6 @@ export default defineConfig({
     test: {
         globals: true,
         globalSetup: "./src/test-globals.ts",
+        setupFiles: "./src/test-setup.ts",
     },
 });

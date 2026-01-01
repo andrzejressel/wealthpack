@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run all" type="CompoundRunConfigurationType">
+    <toRun name="dev:server" type="js.build_tools.npm" />
+    <toRun name="test:watch" type="js.build_tools.npm" />
+    <toRun name="type-check:watch" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>
