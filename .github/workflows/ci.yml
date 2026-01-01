@@ -2,10 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
-    branches: [main, master]
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
   build-and-test:
@@ -55,8 +54,11 @@ jobs:
       - name: Run build
         run: pnpm build
 
-#      - name: Show working tree diff
-#        run: git --no-pager diff
+      - name: Show working tree diff
+        run: git --no-pager diff > test.txt
+        
+      - name: Show working tree diff
+        run: cat test.txt
 #
 #      - name: Show staged diff
 #        run: git --no-pager diff --cached
