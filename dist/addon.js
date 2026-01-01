@@ -6,7 +6,7 @@ var Td;
 function tC() {
   if (Td) return gs;
   Td = 1;
-  var e = Symbol.for("react.transitional.element"), t = Symbol.for("react.fragment");
+  var e = /* @__PURE__ */ Symbol.for("react.transitional.element"), t = /* @__PURE__ */ Symbol.for("react.fragment");
   function r(n, a, s) {
     var i = null;
     if (s !== void 0 && (i = "" + s), a.key !== void 0 && (i = "" + a.key), "key" in a) {
@@ -139,7 +139,7 @@ function sC(e) {
   });
   return t.displayName = `${e}.SlotClone`, t;
 }
-var om = Symbol("radix.slottable");
+var om = /* @__PURE__ */ Symbol("radix.slottable");
 // @__NO_SIDE_EFFECTS__
 function cm(e) {
   const t = ({ children: r }) => /* @__PURE__ */ E.jsx(E.Fragment, { children: r });
@@ -182,7 +182,9 @@ function c0(e) {
   const u = e + "CollectionItemSlot", f = "data-radix-collection-item", d = /* @__PURE__ */ aa(u), h = React.forwardRef(
     (S, m) => {
       const { scope: x, children: g, ...v } = S, T = React.useRef(null), y = be(m, T), L = s(u, x);
-      return React.useEffect(() => (L.itemMap.set(T, { ref: T, ...v }), () => void L.itemMap.delete(T))), /* @__PURE__ */ E.jsx(d, { [f]: "", ref: y, children: g });
+      return React.useEffect(() => (L.itemMap.set(T, { ref: T, ...v }), () => {
+        L.itemMap.delete(T);
+      })), /* @__PURE__ */ E.jsx(d, { [f]: "", ref: y, children: g });
     }
   );
   h.displayName = u;
@@ -278,7 +280,7 @@ var dC = [
 ], De = dC.reduce((e, t) => {
   const r = /* @__PURE__ */ aa(`Primitive.${t}`), n = React.forwardRef((a, s) => {
     const { asChild: i, ...o } = a, c = i ? r : t;
-    return typeof window < "u" && (window[Symbol.for("radix-ui")] = !0), /* @__PURE__ */ E.jsx(c, { ...o, ref: s });
+    return typeof window < "u" && (window[/* @__PURE__ */ Symbol.for("radix-ui")] = !0), /* @__PURE__ */ E.jsx(c, { ...o, ref: s });
   });
   return n.displayName = `Primitive.${t}`, { ...e, [t]: n };
 }, {});
@@ -2708,7 +2710,7 @@ class Hu extends Vu {
     if (f) {
       const A = Math.min(this.currentTime, a) / o;
       let C = Math.floor(A), U = A % 1;
-      !U && A >= 1 && (U = 1), U === 1 && C--, C = Math.min(C, f + 1), !!(C % 2) && (d === "reverse" ? (U = 1 - U, h && (U -= h / o)) : d === "mirror" && (T = i)), v = ln(0, 1, U) * o;
+      !U && A >= 1 && (U = 1), U === 1 && C--, C = Math.min(C, f + 1), C % 2 && (d === "reverse" ? (U = 1 - U, h && (U -= h / o)) : d === "mirror" && (T = i)), v = ln(0, 1, U) * o;
     }
     const y = g ? { done: !1, value: u[0] } : T.next(v);
     s && (y.value = s(y.value));
@@ -4369,7 +4371,7 @@ function R2(e, t, r) {
 const p6 = /* @__PURE__ */ T2({
   scrapeMotionValuesFromProps: R2,
   createRenderState: A2
-}), m6 = Symbol.for("motionComponentSymbol");
+}), m6 = /* @__PURE__ */ Symbol.for("motionComponentSymbol");
 function _a(e) {
   return e && typeof e == "object" && Object.prototype.hasOwnProperty.call(e, "current");
 }
@@ -6744,7 +6746,7 @@ function nh(e) {
 function bU(e, t, r) {
   return e = r && r.length > 0 ? `${e + " " + r.join(" ")}` : e, Dl(e, t, nh(e), nh(t), 0, 0, {});
 }
-var IU = Symbol.for("react.lazy"), Po = React[" use ".trim().toString()];
+var IU = /* @__PURE__ */ Symbol.for("react.lazy"), Po = React[" use ".trim().toString()];
 function PU(e) {
   return typeof e == "object" && e !== null && "then" in e;
 }
@@ -6778,7 +6780,7 @@ function BU(e) {
   });
   return t.displayName = `${e}.SlotClone`, t;
 }
-var NU = Symbol("radix.slottable");
+var NU = /* @__PURE__ */ Symbol("radix.slottable");
 function _U(e) {
   return React.isValidElement(e) && typeof e.type == "function" && "__radixId" in e.type && e.type.__radixId === NU;
 }
@@ -6818,7 +6820,7 @@ var kU = [
 ], Jt = kU.reduce((e, t) => {
   const r = /* @__PURE__ */ nx(`Primitive.${t}`), n = React.forwardRef((a, s) => {
     const { asChild: i, ...o } = a, c = i ? r : t;
-    return typeof window < "u" && (window[Symbol.for("radix-ui")] = !0), /* @__PURE__ */ E.jsx(c, { ...o, ref: s });
+    return typeof window < "u" && (window[/* @__PURE__ */ Symbol.for("radix-ui")] = !0), /* @__PURE__ */ E.jsx(c, { ...o, ref: s });
   });
   return n.displayName = `Primitive.${t}`, { ...e, [t]: n };
 }, {}), As = '[cmdk-group=""]', Pc = '[cmdk-group-items=""]', MU = '[cmdk-group-heading=""]', ax = '[cmdk-item=""]', ah = `${ax}:not([aria-disabled="true"])`, Ll = "cmdk-item-select", Ia = "data-value", GU = (e, t, r) => bU(e, t, r), sx = React.createContext(void 0), Ri = () => React.useContext(sx), ix = React.createContext(void 0), sf = () => React.useContext(ix), ox = React.createContext(void 0), cx = React.forwardRef((e, t) => {
@@ -18821,7 +18823,7 @@ function PB(e, t, r = 0) {
   const n = [t, ...e];
   return r && n.length > r ? n.slice(0, -1) : n;
 }
-var Jf = Symbol();
+var Jf = /* @__PURE__ */ Symbol();
 function a3(e, t) {
   return !e.queryFn && t?.initialPromise ? () => t.initialPromise : !e.queryFn || e.queryFn === Jf ? () => Promise.reject(new Error(`Missing queryFn: '${e.queryHash}'`)) : e.queryFn;
 }
@@ -22222,10 +22224,8 @@ var hp = /* @__PURE__ */ (function() {
   function U(w, k) {
     var B = k || {};
     if (B.fileType == "mad") return QA(w, B);
-    switch (C(w), B.fileType) {
-      case "zip":
-        return Wi(w, B);
-    }
+    if (C(w), B.fileType === "zip")
+      return Wi(w, B);
     var N = (function(Re) {
       for (var xe = 0, Ae = 0, _e = 0; _e < Re.FileIndex.length; ++_e) {
         var nt = Re.FileIndex[_e];
@@ -26182,11 +26182,7 @@ var VO = [2, 3, 48, 49, 131, 139, 140, 245], Vp = /* @__PURE__ */ (function() {
           break;
         /* window */
         case "P":
-          switch (J[1].charAt(0)) {
-            case "P":
-              y.push(ee.slice(3).replace(/;;/g, ";"));
-              break;
-          }
+          J[1].charAt(0) === "P" && y.push(ee.slice(3).replace(/;;/g, ";"));
           break;
         case "NN":
           {
@@ -26536,15 +26532,7 @@ EOD`;
             var T = g[g.length - 1];
           /* falls through */
           case "vtc":
-            switch (g[3]) {
-              case "nl":
-                x[p][S] = !!+g[4];
-                break;
-              default:
-                x[p][S] = g[g.length - 1].charAt(0) == "#" ? { t: "e", v: Bt[g[g.length - 1]] } : +g[4];
-                break;
-            }
-            g[2] == "vtf" && (x[p][S] = [x[p][S], T]);
+            g[3] === "nl" ? x[p][S] = !!+g[4] : x[p][S] = g[g.length - 1].charAt(0) == "#" ? { t: "e", v: Bt[g[g.length - 1]] } : +g[4], g[2] == "vtf" && (x[p][S] = [x[p][S], T]);
         }
       }
     }
@@ -29286,7 +29274,7 @@ function lM(e, t, r) {
   var n = 0;
   (y3(e, "shape") || []).forEach(function(a) {
     var s = "", i = !0, o = -1, c = -1, l = -1;
-    switch (a.replace(Ot, function(f, d) {
+    if (a.replace(Ot, function(f, d) {
       var h = ye(f);
       switch (Ur(h[0])) {
         case "<ClientData":
@@ -29312,11 +29300,9 @@ function lM(e, t, r) {
           break;
       }
       return "";
-    }), s) {
-      case "Note":
-        var u = hi(t, c >= 0 && l >= 0 ? $e({ r: c, c: l }) : r[n].ref);
-        u.c && (u.c.hidden = i), ++n;
-        break;
+    }), s === "Note") {
+      var u = hi(t, c >= 0 && l >= 0 ? $e({ r: c, c: l }) : r[n].ref);
+      u.c && (u.c.hidden = i), ++n;
     }
   });
 }
@@ -30073,15 +30059,7 @@ function NG(e) {
   for (var t = [], r = 0; r < e.length; ++r) {
     for (var n = e[r], a = [], s = 0; s < n.length; ++s) {
       var i = n[s];
-      if (i) switch (i[0]) {
-        // TODO: handle embedded quotes
-        case 2:
-          a.push('"' + i[1].replace(/"/g, '""') + '"');
-          break;
-        default:
-          a.push(i[1]);
-      }
-      else a.push("");
+      i ? i[0] === 2 ? a.push('"' + i[1].replace(/"/g, '""') + '"') : a.push(i[1]) : a.push("");
     }
     t.push(a.join(","));
   }
@@ -30119,7 +30097,6 @@ function yA(e, t, r) {
       return a = n[1] == -1 ? "#REF" : e.SheetNames[n[1]], n[1] == n[2] ? a : a + ":" + e.SheetNames[n[2]];
     case 358:
       return r.SID != null ? e.SheetNames[r.SID] : "SH33TJSSAME" + e[n[0]][0];
-    case 355:
     /* 'BrtSupBookSrc' */
     /* falls through */
     default:
@@ -39839,11 +39816,7 @@ function kA(e, t, r) {
       break;
     // 9.1.12 <table:table-columns>
     case "null-date":
-      switch (o = ye(m[0], !1), o["date-value"]) {
-        case "1904-01-01":
-          Z.WBProps.date1904 = !0;
-          break;
-      }
+      o = ye(m[0], !1), o["date-value"] === "1904-01-01" && (Z.WBProps.date1904 = !0);
       break;
     case "graphic-properties":
       break;
