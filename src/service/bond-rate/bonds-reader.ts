@@ -4,12 +4,28 @@ export interface BondId {
     value: string;
 }
 
-export interface Bond {
+export class Bond {
     id: BondId;
     initialDate: Date;
     saleEnd: Date;
     buyoutDate: Date;
-    values: number[];
+    private values: number[] | null = null;
+    private valueGenerator: ValueGenerator;
+
+    constructor(id: BondId, initialDate: Date, saleEnd: Date, buyoutDate: Date, generator: ValueGenerator) {
+        this.id = id;
+        this.initialDate = initialDate;
+        this.saleEnd = saleEnd;
+        this.buyoutDate = buyoutDate;
+        this.valueGenerator = generator;
+    }
+    
+    getValues(): number[] {
+        if (this.values === null) {
+            this.values = this.valueGenerator.calculateDailyBondValues(this.initialDate);
+        }
+        return this.values;
+    }
 }
 
 export interface AllBonds {
@@ -102,13 +118,7 @@ function extractBondType(workbook: XLSX.WorkBook, bondType: string, bondLengthIn
             generator.addYearlyReturn(roundedValue);
         }
 
-        const bond: Bond = {
-            id: bondId,
-            initialDate: saleStart,
-            buyoutDate: buyoutDate,
-            saleEnd: saleEnd,
-            values: generator.calculateDailyBondValues(saleStart),
-        };
+        const bond = new Bond(bondId, saleStart, saleEnd, buyoutDate, generator);
 
         bonds.set(bondId.value, bond);
     }

@@ -1,13 +1,20 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`bonds-reader > ValueGenerator > should calculate daily bond values like ROD1235 1`] = `
-{
+Bond {
   "buyoutDate": 2035-12-01T00:00:00.000Z,
   "id": {
     "value": "ROD1235",
   },
   "initialDate": 2023-12-01T00:00:00.000Z,
   "saleEnd": 2023-12-31T00:00:00.000Z,
+  "valueGenerator": ValueGenerator {
+    "initialValue": 100,
+    "yearlyReturns": [
+      0.0725,
+      0.07,
+    ],
+  },
   "values": [
     100,
     100.02,
@@ -746,13 +753,28 @@ exports[`bonds-reader > ValueGenerator > should calculate daily bond values like
 `;
 
 exports[`bonds-reader > readBonds > should read EDO0125 bond correctly 1`] = `
-{
+Bond {
   "buyoutDate": 2025-01-01T00:00:00.000Z,
   "id": {
     "value": "EDO0125",
   },
   "initialDate": 2015-01-01T00:00:00.000Z,
   "saleEnd": 2015-01-31T00:00:00.000Z,
+  "valueGenerator": ValueGenerator {
+    "initialValue": 100,
+    "yearlyReturns": [
+      0.03,
+      0.015,
+      0.015,
+      0.04,
+      0.028,
+      0.041,
+      0.045,
+      0.093,
+      0.19,
+      0.081,
+    ],
+  },
   "values": [
     100,
     100.01,
@@ -4413,13 +4435,19 @@ exports[`bonds-reader > readBonds > should read EDO0125 bond correctly 1`] = `
 `;
 
 exports[`bonds-reader > readBonds > should read EDO0535 bond correctly 1`] = `
-{
+Bond {
   "buyoutDate": 2035-05-01T00:00:00.000Z,
   "id": {
     "value": "EDO0535",
   },
   "initialDate": 2025-05-01T00:00:00.000Z,
   "saleEnd": 2025-05-31T00:00:00.000Z,
+  "valueGenerator": ValueGenerator {
+    "initialValue": 100,
+    "yearlyReturns": [
+      0.0635,
+    ],
+  },
   "values": [
     100,
     100.02,
@@ -4792,13 +4820,28 @@ exports[`bonds-reader > readBonds > should read EDO0535 bond correctly 1`] = `
 `;
 
 exports[`bonds-reader > readBonds > should read EDO1224 bond correctly 1`] = `
-{
+Bond {
   "buyoutDate": 2024-12-01T00:00:00.000Z,
   "id": {
     "value": "EDO1224",
   },
   "initialDate": 2014-12-01T00:00:00.000Z,
   "saleEnd": 2014-12-31T00:00:00.000Z,
+  "valueGenerator": ValueGenerator {
+    "initialValue": 100,
+    "yearlyReturns": [
+      0.03,
+      0.015,
+      0.015,
+      0.036,
+      0.033,
+      0.04,
+      0.046,
+      0.083,
+      0.194,
+      0.081,
+    ],
+  },
   "values": [
     100,
     100.01,
@@ -8459,13 +8502,20 @@ exports[`bonds-reader > readBonds > should read EDO1224 bond correctly 1`] = `
 `;
 
 exports[`bonds-reader > readBonds > should read ROD1235 bond correctly 1`] = `
-{
+Bond {
   "buyoutDate": 2035-12-01T00:00:00.000Z,
   "id": {
     "value": "ROD1235",
   },
   "initialDate": 2023-12-01T00:00:00.000Z,
   "saleEnd": 2023-12-31T00:00:00.000Z,
+  "valueGenerator": ValueGenerator {
+    "initialValue": 100,
+    "yearlyReturns": [
+      0.0725,
+      0.07,
+    ],
+  },
   "values": [
     100,
     100.02,
