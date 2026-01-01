@@ -31,12 +31,17 @@ export default defineConfig({
         },
         outDir: "dist",
         minify: "esbuild",
-        sourcemap: "inline",
-        watch: {
-            // Watch mode options for better hot reloading
-            include: ["src/**"],
-            exclude: ["node_modules/**", "dist/**"],
-        },
+        sourcemap: false,
+        watch: process.env.CI
+            ? null
+            : {
+                  // Watch mode options for better hot reloading
+                  include: ["src/**"],
+                  exclude: ["node_modules/**", "dist/**"],
+              },
     },
-    test: {},
+    test: {
+        globals: true,
+        globalSetup: "./src/test-globals.ts",
+    },
 });
