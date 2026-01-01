@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import {defineConfig} from "vitest/config";
+import { defineConfig } from "vitest/config";
 import externalGlobals from "rollup-plugin-external-globals";
 
 export default defineConfig({
@@ -32,11 +32,13 @@ export default defineConfig({
         outDir: "dist",
         minify: "esbuild",
         sourcemap: false,
-        watch: process.env.CI ? null : {
-            // Watch mode options for better hot reloading
-            include: ["src/**"],
-            exclude: ["node_modules/**", "dist/**"],
-        },
+        watch: process.env.CI
+            ? null
+            : {
+                  // Watch mode options for better hot reloading
+                  include: ["src/**"],
+                  exclude: ["node_modules/**", "dist/**"],
+              },
     },
     test: {
         globals: true,
