@@ -59,14 +59,7 @@ jobs:
       - name: Run build
         run: pnpm build
 
-      - name: Show working tree diff
-        run: git --no-pager diff > test.txt
-
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage-report-${{ matrix.os }}
-          path: test.txt
-
+      - run: git add . && git diff
+      - run: git diff --cached
       - name: Ensure no files have changed
         run: git add . && git diff --quiet && git diff --cached --quiet
