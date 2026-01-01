@@ -27,7 +27,3 @@ npm run format:write
 ## Features
 
 - Add your features here
-
-## License
-
-MIT
