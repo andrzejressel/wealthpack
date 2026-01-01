@@ -18,6 +18,7 @@ describe("bonds-reader", () => {
 
             const rod1235bond = result.rod.get("ROD1235");
             expect(rod1235bond).toBeDefined();
+            rod1235bond!!.getValues();
             expect(rod1235bond).toMatchSnapshot();
         });
 
@@ -27,6 +28,7 @@ describe("bonds-reader", () => {
 
             const edo1224bond = result.edo.get("EDO1224");
             expect(edo1224bond).toBeDefined();
+            edo1224bond!!.getValues();
             expect(edo1224bond).toMatchSnapshot();
         });
 
@@ -36,6 +38,7 @@ describe("bonds-reader", () => {
 
             const edo0125bond = result.edo.get("EDO0125");
             expect(edo0125bond).toBeDefined();
+            edo0125bond!!.getValues();
             expect(edo0125bond).toMatchSnapshot();
         });
 
@@ -46,6 +49,7 @@ describe("bonds-reader", () => {
 
             const edo0535bond = result.edo.get("EDO0535");
             expect(edo0535bond).toBeDefined();
+            edo0535bond!!.getValues();
             expect(edo0535bond).toMatchSnapshot();
         });
     });
@@ -57,6 +61,7 @@ describe("bonds-reader", () => {
             const rod1235bond = result.rod.get("ROD1235");
 
             expect(rod1235bond).toBeDefined();
+            rod1235bond!!.getValues();
             expect(rod1235bond).toMatchSnapshot();
         });
 
@@ -70,7 +75,7 @@ describe("bonds-reader", () => {
                 throw Error("unreachable");
             }
             // All values should have at most 2 decimal places
-            bond.values.forEach((value) => {
+            bond.getValues().forEach((value) => {
                 const decimalPlaces = (value.toString().split(".")[1] || "").length;
                 expect(decimalPlaces).toBeLessThanOrEqual(2);
             });

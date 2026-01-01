@@ -20,6 +20,7 @@
         "type-check:watch": "tsc --noEmit --watch",
         "test": "cross-env NODE_ENV=test vitest run",
         "test:watch": "cross-env NODE_ENV=test vitest",
+        "test:regenerate": "vitest run --update",
         "format:check": "prettier --check .",
         "format:write": "prettier --write ."
     },

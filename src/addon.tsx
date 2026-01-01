@@ -130,6 +130,7 @@ function AddonExample({ ctx }: { ctx: AddonContext }) {
     );
 }
 
+// noinspection JSUnusedGlobalSymbols
 export default function enable(ctx: AddonContext) {
     const queryClient = new QueryClient();
 
