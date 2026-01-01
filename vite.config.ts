@@ -32,11 +32,6 @@ export default defineConfig({
         outDir: "dist",
         minify: "esbuild",
         sourcemap: "inline",
-        watch: process.env.CI ? null : {
-            // Watch mode options for better hot reloading
-            include: ["src/**"],
-            exclude: ["node_modules/**", "dist/**"],
-        },
     },
     test: {
         globals: true,

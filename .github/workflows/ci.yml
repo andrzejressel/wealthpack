@@ -51,17 +51,8 @@ jobs:
 
             - name: Run build
               run: pnpm build
-
-            - name: Verify no files changed
-              run: |
-                  if ! git diff --exit-code; then
-                    echo "Error: Files were modified during the build process"
-                    git diff
-                    exit 1
-                  fi
-                  if ! git diff --cached --exit-code; then
-                    echo "Error: Staged files were modified during the build process"
-                    git diff --cached
-                    exit 1
-                  fi
-                  echo "✓ No files were modified during the build process"
+    
+            - run: git add . && git diff
+            - run: git diff --cached
+            - name: Ensure no files have changed
+              run: git add . && git diff --quiet && git diff --cached --quiet
