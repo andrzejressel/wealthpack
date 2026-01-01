@@ -59,9 +59,12 @@ jobs:
         
       - name: Show working tree diff
         run: cat test.txt
-#
-#      - name: Show staged diff
-#        run: git --no-pager diff --cached
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report-${{ matrix.os }}
+          path: test.txt
 
       - name: Ensure no files have changed
         run: git add . && git diff --quiet && git diff --cached --quiet
