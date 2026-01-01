@@ -55,7 +55,11 @@ jobs:
       - name: Run build
         run: pnpm build
 
-      - run: git add . && git diff
-      - run: git diff --cached
+      - name: Show working tree diff
+        run: git --no-pager diff
+
+      - name: Show staged diff
+        run: git --no-pager diff --cached
+
       - name: Ensure no files have changed
         run: git add . && git diff --quiet && git diff --cached --quiet
