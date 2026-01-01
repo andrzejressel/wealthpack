@@ -4,9 +4,7 @@ import { Button, Card, CardContent, Icons, Select, SelectContent, SelectItem, Se
 import { useQuery } from "@tanstack/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FileDropzone } from "./components/file-dropzone";
-import { polishBondsReader } from "./service/transaction-log/transaction-reader";
-import { getServiceImplementation, Services, stringToSupportedService, SupportedService, supportedServiceToDescription } from "./types";
-import { mBankReader } from "./service/banks/mbank/mbank-reader";
+import { getServiceImplementation, stringToSupportedService, SupportedService, supportedServiceToDescription } from "./types";
 
 async function getAllTransactionIds(ctx: AddonContext, accountId: string): Promise<Set<string>> {
     const activities = await ctx.api.activities.getAll(accountId);
@@ -127,6 +125,7 @@ function AddonExample({ ctx }: { ctx: AddonContext }) {
                     </div>
                 </CardContent>
             </Card>
+            {/*<EditableTable />*/}
         </div>
     );
 }

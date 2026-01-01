@@ -51,7 +51,7 @@ export function stringToSupportedService(value: string): SupportedService {
 export function supportedServiceToDescription(value: SupportedService): string {
     switch (value) {
         case SupportedService.POLISH_BONDS:
-            return "Polish Bonds";
+            return "Polish Bonds (Obligacje Skarbowe)";
         case SupportedService.MBANK:
             return "mBank";
         case SupportedService.BOSSA:
