@@ -19,7 +19,7 @@ export class Bond {
         this.buyoutDate = buyoutDate;
         this.valueGenerator = generator;
     }
-    
+
     getValues(): number[] {
         if (this.values === null) {
             this.values = this.valueGenerator.calculateDailyBondValues(this.initialDate);
