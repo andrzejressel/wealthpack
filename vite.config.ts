@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import {defineConfig} from "vitest/config";
+import { defineConfig } from "vitest/config";
 import externalGlobals from "rollup-plugin-external-globals";
 
 export default defineConfig({
