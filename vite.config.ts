@@ -31,7 +31,8 @@ export default defineConfig({
         },
         outDir: "dist",
         minify: "esbuild",
-        sourcemap: false,
+        sourcemap: "inline",
+        // sourcemap: false,
         watch: process.env.CI
             ? null
             : {

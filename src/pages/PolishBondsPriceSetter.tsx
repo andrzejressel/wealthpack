@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Card, CardContent, Icons } from "@wealthfolio/ui";
-import type { AddonContext } from "@wealthfolio/addon-sdk";
-import { useQuery } from "@tanstack/react-query";
-import { readBonds, type AllBonds } from "../service/bond-rate/bonds-reader";
+import {useState, useEffect} from "react";
+import {motion, AnimatePresence} from "motion/react";
+import {Card, CardContent, Icons} from "@wealthfolio/ui";
+import type {AddonContext} from "@wealthfolio/addon-sdk";
+import {useQuery} from "@tanstack/react-query";
+import {readBonds, type AllBonds, Bond} from "../service/bond-rate/bonds-reader";
 
 interface PolishBondsPriceSetterProps {
     ctx: AddonContext;
@@ -30,11 +30,12 @@ async function mockDownloadBondsFile(): Promise<ArrayBuffer> {
     const timeout = setTimeout(() => controller.abort(), 15000);
 
     try {
-        const res = await fetch(url, { signal: controller.signal });
+        const res = await fetch(url, {signal: controller.signal});
         if (!res.ok) {
             throw new Error(`Download failed: ${res.status} ${res.statusText}`);
         }
         const data = await res.arrayBuffer();
+        // return new ArrayBuffer()
         return data;
     } catch (err) {
         throw new Error(
@@ -47,11 +48,11 @@ async function mockDownloadBondsFile(): Promise<ArrayBuffer> {
 
 async function fetchBondsFromWealthfolio(ctx: AddonContext): Promise<string[]> {
     await new Promise((resolve) => setTimeout(resolve, 800));
-    
+
     // Get all accounts and their activities to find Polish bonds
     const accounts = await ctx.api.accounts.getAll();
     const bondSymbols = new Set<string>();
-    
+
     for (const account of accounts) {
         const activities = await ctx.api.activities.getAll(account.id);
         activities.forEach((activity) => {
@@ -61,57 +62,79 @@ async function fetchBondsFromWealthfolio(ctx: AddonContext): Promise<string[]> {
             }
         });
     }
-    
+
     return Array.from(bondSymbols);
 }
 
-export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => {
+export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
     const [steps, setSteps] = useState<Step[]>([
-        { id: "download", label: "Downloading bond rates file", status: StepStatus.PENDING },
-        { id: "parse", label: "Parsing bond data", status: StepStatus.PENDING },
-        { id: "fetch", label: "Fetching your bonds from Wealthfolio", status: StepStatus.PENDING },
-        { id: "match", label: "Matching bond prices", status: StepStatus.PENDING },
-        { id: "update", label: "Updating prices", status: StepStatus.PENDING },
+        {id: "download", label: "Downloading bond rates file", status: StepStatus.PENDING},
+        {id: "parse", label: "Parsing bond data", status: StepStatus.PENDING},
+        {id: "fetch", label: "Fetching your bonds from Wealthfolio", status: StepStatus.PENDING},
+        {id: "match", label: "Matching bond prices", status: StepStatus.PENDING},
+        {id: "update", label: "Updating prices", status: StepStatus.PENDING},
     ]);
 
     const [bondData, setBondData] = useState<AllBonds | null>(null);
     const [userBonds, setUserBonds] = useState<string[]>([]);
+    const [matchedBonds, setMatchedBonds] = useState<Map<string, Bond>>(new Map());
 
     const updateStepStatus = (stepId: string, status: StepStatus, error?: string) => {
         setSteps((prev) =>
             prev.map((step) =>
-                step.id === stepId ? { ...step, status, error } : step
+                step.id === stepId ? {...step, status, error} : step
             )
         );
     };
 
+    const matchBondPrices = (
+        bonds: AllBonds,
+        userBondSymbols: string[]
+    ): Map<string, Bond> => {
+        const matches = new Map<string, Bond>();
+
+        userBondSymbols.forEach((symbol) => {
+            const edoBond = bonds.edo.get(symbol);
+            const rodBond = bonds.rod.get(symbol);
+            const foundBond = edoBond || rodBond;
+
+            if (foundBond) {
+                matches.set(symbol, foundBond);
+            } else {
+                // matches.set(symbol, {matched: false});
+            }
+        });
+
+        console.log("Matched Bonds:", matches);
+
+        return matches;
+    };
+
     const startProcess = async () => {
         try {
+            console.log("Starting Polish Bonds Price Setter process...");
             // Step 1: Download
             updateStepStatus("download", StepStatus.IN_PROGRESS);
-            try {
-                const fileData = await mockDownloadBondsFile();
-                updateStepStatus("download", StepStatus.COMPLETED);
+            // try {
+            const fileData = await mockDownloadBondsFile();
+            updateStepStatus("download", StepStatus.COMPLETED);
 
-                // Step 2: Parse
-                updateStepStatus("parse", StepStatus.IN_PROGRESS);
-                const bonds = readBonds(fileData);
-                setBondData(bonds);
-                updateStepStatus("parse", StepStatus.COMPLETED);
-            } catch (err) {
-                updateStepStatus("download", StepStatus.ERROR, "Download not implemented yet - this is a mock");
-                return;
-            }
+            // Step 2: Parse
+            updateStepStatus("parse", StepStatus.IN_PROGRESS);
+            const allBonds = readBonds(fileData);
+            setBondData(allBonds);
+            updateStepStatus("parse", StepStatus.COMPLETED);
 
             // Step 3: Fetch user bonds
             updateStepStatus("fetch", StepStatus.IN_PROGRESS);
-            const bonds = await fetchBondsFromWealthfolio(ctx);
-            setUserBonds(bonds);
+            const userBondsIds = await fetchBondsFromWealthfolio(ctx);
+            setUserBonds(userBondsIds);
             updateStepStatus("fetch", StepStatus.COMPLETED);
 
             // Step 4: Match
             updateStepStatus("match", StepStatus.IN_PROGRESS);
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            const matches = matchBondPrices(allBonds, userBondsIds);
+            setMatchedBonds(matches);
             updateStepStatus("match", StepStatus.COMPLETED);
 
             // Step 5: Update
@@ -119,6 +142,7 @@ export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => 
             await new Promise((resolve) => setTimeout(resolve, 1000));
             updateStepStatus("update", StepStatus.COMPLETED);
         } catch (error) {
+            console.error("Error during process:", error);
             const currentInProgress = steps.find((s) => s.status === StepStatus.IN_PROGRESS);
             if (currentInProgress) {
                 updateStepStatus(
@@ -131,7 +155,7 @@ export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => 
     };
 
     useEffect(() => {
-        startProcess();
+        startProcess()
     }, []);
 
     return (
@@ -146,31 +170,31 @@ export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => 
                         {steps.map((step, index) => (
                             <motion.div
                                 key={step.id}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 }}
+                                initial={{opacity: 0, x: -20}}
+                                animate={{opacity: 1, x: 0}}
+                                transition={{delay: index * 0.1}}
                                 className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
                                     step.status === StepStatus.COMPLETED
                                         ? "bg-muted/30 border-border/50"
                                         : step.status === StepStatus.IN_PROGRESS
-                                        ? "bg-background border-primary/50"
-                                        : step.status === StepStatus.ERROR
-                                        ? "bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/20"
-                                        : "bg-background/50 border-border/30"
+                                            ? "bg-background border-primary/50"
+                                            : step.status === StepStatus.ERROR
+                                                ? "bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/20"
+                                                : "bg-background/50 border-border/30"
                                 }`}
                             >
                                 <div className="flex-shrink-0">
                                     {step.status === StepStatus.IN_PROGRESS && (
-                                        <Icons.Loader className="h-5 w-5 text-primary animate-spin" />
+                                        <Icons.Loader className="h-5 w-5 text-primary animate-spin"/>
                                     )}
                                     {step.status === StepStatus.COMPLETED && (
-                                        <Icons.Check className="h-5 w-5 text-green-600 dark:text-green-400" />
+                                        <Icons.Check className="h-5 w-5 text-green-600 dark:text-green-400"/>
                                     )}
                                     {step.status === StepStatus.ERROR && (
-                                        <Icons.AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+                                        <Icons.AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400"/>
                                     )}
                                     {step.status === StepStatus.PENDING && (
-                                        <div className="h-5 w-5 rounded-full border-2 border-border/50" />
+                                        <div className="h-5 w-5 rounded-full border-2 border-border/50"/>
                                     )}
                                 </div>
 
@@ -180,10 +204,10 @@ export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => 
                                             step.status === StepStatus.COMPLETED
                                                 ? "text-muted-foreground"
                                                 : step.status === StepStatus.IN_PROGRESS
-                                                ? "text-foreground"
-                                                : step.status === StepStatus.ERROR
-                                                ? "text-red-600 dark:text-red-400"
-                                                : "text-muted-foreground/70"
+                                                    ? "text-foreground"
+                                                    : step.status === StepStatus.ERROR
+                                                        ? "text-red-600 dark:text-red-400"
+                                                        : "text-muted-foreground/70"
                                         }`}
                                     >
                                         {step.label}
@@ -197,11 +221,11 @@ export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => 
 
                                 {step.status === StepStatus.COMPLETED && (
                                     <motion.div
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
+                                        initial={{scale: 0}}
+                                        animate={{scale: 1}}
                                         className="flex-shrink-0"
                                     >
-                                        <div className="h-2 w-2 rounded-full bg-green-600 dark:bg-green-400" />
+                                        <div className="h-2 w-2 rounded-full bg-green-600 dark:bg-green-400"/>
                                     </motion.div>
                                 )}
                             </motion.div>
@@ -210,15 +234,18 @@ export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => 
 
                     {bondData && (
                         <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            initial={{opacity: 0, y: 10}}
+                            animate={{opacity: 1, y: 0}}
                             className="mt-6 p-4 rounded-lg bg-muted/30 border border-border"
                         >
                             <p className="text-sm text-muted-foreground">
                                 Loaded {bondData.edo.size} EDO bonds and {bondData.rod.size} ROD bonds
                             </p>
                             <p className="text-sm text-muted-foreground mt-1">
-                                Found {userBonds.length} bonds in your portfolio
+                                Found {userBonds.length} bonds in your portfolio.
+                            </p>
+                            <p className="text-sm text-muted-foreground mt-1">
+                                Matched prices for {matchedBonds.size} bonds.
                             </p>
                         </motion.div>
                     )}
