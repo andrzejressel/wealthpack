@@ -41,8 +41,11 @@ function AddonExample({ ctx }: { ctx: AddonContext }) {
     const [file, setFile] = useState<File | null>(null);
 
     const [service, setService] = useState<SupportedService | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     async function handleSend() {
+        setErrorMessage(null);
+
         if (!file) {
             alert("Please upload a file");
             return;
@@ -58,27 +61,32 @@ function AddonExample({ ctx }: { ctx: AddonContext }) {
             return;
         }
 
-        const historiaFileContent = await file.arrayBuffer();
+        try {
+            const historiaFileContent = await file.arrayBuffer();
 
-        const existingTransactionIds = await getAllTransactionIds(ctx, accountId);
+            const existingTransactionIds = await getAllTransactionIds(ctx, accountId);
 
-        const transactions = getServiceImplementation(service).readFile(historiaFileContent);
+            const transactions = getServiceImplementation(service).readFile(historiaFileContent);
 
-        const creates: ActivityCreate[] = [];
+            const creates: ActivityCreate[] = [];
 
-        for (let transaction of transactions) {
-            creates.push({
-                ...transaction,
-                accountId,
+            for (let transaction of transactions) {
+                creates.push({
+                    ...transaction,
+                    accountId,
+                });
+            }
+
+            await ctx.api.activities.saveMany({
+                creates: creates,
+                deleteIds: Array.from(existingTransactionIds),
             });
+
+            alert(`Imported ${transactions.length} transactions`);
+        } catch (err) {
+            const message = err instanceof Error ? err.message : "Unknown error";
+            setErrorMessage(message);
         }
-
-        await ctx.api.activities.saveMany({
-            creates: creates,
-            deleteIds: Array.from(existingTransactionIds),
-        });
-
-        alert(`Imported ${transactions.length} transactions`);
     }
 
     return (
@@ -89,6 +97,7 @@ function AddonExample({ ctx }: { ctx: AddonContext }) {
                         <div>
                             {isLoading && <div>Loading accounts...</div>}
                             {isError && <div>Error loading accounts: {error.message}</div>}
+                            {errorMessage && <div className="text-red-600 text-sm">Error: {errorMessage}</div>}
                             {data && data.length === 0 && <div>No accounts found.</div>}
                             {data && data.length > 0 && (
                                 <Select onValueChange={setAccountId}>
