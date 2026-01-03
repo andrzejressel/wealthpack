@@ -32,13 +32,14 @@ export default defineConfig({
         outDir: "dist",
         minify: false,
         sourcemap: process.env.DEV_ENV === "true" ? "inline" : false,
-        watch: process.env.DEV_ENV === "true"
-            ? {
-                // Watch mode options for better hot reloading
-                include: ["src/**"],
-                exclude: ["node_modules/**", "dist/**"],
-            }
-            : null,
+        watch:
+            process.env.DEV_ENV === "true"
+                ? {
+                      // Watch mode options for better hot reloading
+                      include: ["src/**"],
+                      exclude: ["node_modules/**", "dist/**"],
+                  }
+                : null,
     },
     test: {
         globals: true,

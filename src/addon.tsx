@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FileDropzone } from "./components/file-dropzone";
 import { getServiceImplementation, stringToSupportedService, SupportedService, supportedServiceToDescription } from "./types";
-import {PolishBondsPriceSetter} from "./pages/PolishBondsPriceSetter";
+import { PolishBondsPriceSetter } from "./pages/PolishBondsPriceSetter";
 
 async function getAllTransactionIds(ctx: AddonContext, accountId: string): Promise<Set<string>> {
     const activities = await ctx.api.activities.getAll(accountId);
@@ -143,7 +143,7 @@ export default function enable(ctx: AddonContext) {
         route: "/addon/wealthpack",
         order: 100,
     });
-    
+
     const sidebarItemBondPrices = ctx.sidebar.addItem({
         id: "wealthpack-bond-prices",
         label: "Wealthpack Bond Prices",
@@ -151,7 +151,7 @@ export default function enable(ctx: AddonContext) {
         route: "/addon/wealthpack-bond-prices",
         order: 101,
     });
-    
+
     // Add a route
     const Wrapper = () => (
         <QueryClientProvider client={queryClient}>
@@ -162,7 +162,7 @@ export default function enable(ctx: AddonContext) {
         path: "/addon/wealthpack",
         component: lazy(() => Promise.resolve({ default: Wrapper })),
     });
-    
+
     const WrapperBondPrices = () => (
         <QueryClientProvider client={queryClient}>
             <PolishBondsPriceSetter ctx={ctx} />

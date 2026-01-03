@@ -29,4 +29,3 @@ describe("formatDateISO", () => {
         expect(formatted.includes("T")).toBe(false);
     });
 });
-

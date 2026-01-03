@@ -60772,9 +60772,7 @@ async function mockDownloadBondsFile() {
     }
     return await res.arrayBuffer();
   } catch (err) {
-    throw new Error(
-      `Failed to download bonds file: ${err instanceof Error ? err.message : String(err)}`
-    );
+    throw new Error(`Failed to download bonds file: ${err instanceof Error ? err.message : String(err)}`);
   } finally {
     clearTimeout(timeout);
   }
@@ -60879,11 +60877,7 @@ const PolishBondsPriceSetter = ({ ctx }) => {
   const [matchedBonds, setMatchedBonds] = React.useState(/* @__PURE__ */ new Map());
   const [quoteStats, setQuoteStats] = React.useState({ totalQuotes: 0, addedQuotes: 0 });
   const updateStepStatus = (stepId, status, error) => {
-    setSteps(
-      (prev) => prev.map(
-        (step) => step.id === stepId ? { ...step, status, error } : step
-      )
-    );
+    setSteps((prev) => prev.map((step) => step.id === stepId ? { ...step, status, error } : step));
   };
   const matchBondPrices = (bonds, userBondSymbols) => {
     const matches = /* @__PURE__ */ new Map();
@@ -60968,11 +60962,7 @@ const PolishBondsPriceSetter = ({ ctx }) => {
         /* IN_PROGRESS */
       );
       if (currentInProgress) {
-        updateStepStatus(
-          currentInProgress.id,
-          "error",
-          error instanceof Error ? error.message : "Unknown error"
-        );
+        updateStepStatus(currentInProgress.id, "error", error instanceof Error ? error.message : "Unknown error");
       }
     }
   };
@@ -61005,15 +60995,7 @@ const PolishBondsPriceSetter = ({ ctx }) => {
             ),
             step.error && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-red-600 dark:text-red-400 mt-1", children: step.error })
           ] }),
-          step.status === "completed" && /* @__PURE__ */ jsxRuntimeExports.jsx(
-            motion.div,
-            {
-              initial: { scale: 0 },
-              animate: { scale: 1 },
-              className: "flex-shrink-0",
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-2 w-2 rounded-full bg-green-600 dark:bg-green-400" })
-            }
-          )
+          step.status === "completed" && /* @__PURE__ */ jsxRuntimeExports.jsx(motion.div, { initial: { scale: 0 }, animate: { scale: 1 }, className: "flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-2 w-2 rounded-full bg-green-600 dark:bg-green-400" }) })
         ]
       },
       step.id

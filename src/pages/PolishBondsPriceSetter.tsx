@@ -1,9 +1,9 @@
-import {useState, useEffect} from "react";
-import {motion} from "motion/react";
-import {Card, CardContent, Icons} from "@wealthfolio/ui";
-import type {AddonContext, Quote} from "@wealthfolio/addon-sdk";
-import {readBonds, type AllBonds, Bond} from "../service/bond-rate/bonds-reader";
-import {formatDateISO} from "../lib";
+import { useState, useEffect } from "react";
+import { motion } from "motion/react";
+import { Card, CardContent, Icons } from "@wealthfolio/ui";
+import type { AddonContext, Quote } from "@wealthfolio/addon-sdk";
+import { readBonds, type AllBonds, Bond } from "../service/bond-rate/bonds-reader";
+import { formatDateISO } from "../lib";
 
 interface PolishBondsPriceSetterProps {
     ctx: AddonContext;
@@ -35,15 +35,13 @@ async function mockDownloadBondsFile(): Promise<ArrayBuffer> {
     const timeout = setTimeout(() => controller.abort(), 15000);
 
     try {
-        const res = await fetch(url, {signal: controller.signal});
+        const res = await fetch(url, { signal: controller.signal });
         if (!res.ok) {
             throw new Error(`Download failed: ${res.status} ${res.statusText}`);
         }
         return await res.arrayBuffer();
     } catch (err) {
-        throw new Error(
-            `Failed to download bonds file: ${err instanceof Error ? err.message : String(err)}`
-        );
+        throw new Error(`Failed to download bonds file: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
         clearTimeout(timeout);
     }
@@ -69,11 +67,7 @@ async function fetchBondsFromWealthfolio(ctx: AddonContext): Promise<string[]> {
     return Array.from(bondSymbols);
 }
 
-export async function updateBondPrices(
-    ctx: AddonContext,
-    matchedBonds: Map<string, Bond>,
-    onProgress?: (added: number, total: number) => void
-): Promise<void> {
+export async function updateBondPrices(ctx: AddonContext, matchedBonds: Map<string, Bond>, onProgress?: (added: number, total: number) => void): Promise<void> {
     // Step 1: Precalculate all quotes to add
     const quotesToAdd: Quote[] = [];
 
@@ -124,7 +118,7 @@ export async function updateBondPrices(
                 volume: 0,
                 close: price,
                 adjclose: price,
-                currency: "PLN"
+                currency: "PLN",
             };
 
             quotesToAdd.push(quote);
@@ -144,32 +138,25 @@ export async function updateBondPrices(
     }
 }
 
-export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
+export const PolishBondsPriceSetter = ({ ctx }: PolishBondsPriceSetterProps) => {
     const [steps, setSteps] = useState<Step[]>([
-        {id: "download", label: "Downloading bond rates file", status: StepStatus.PENDING},
-        {id: "parse", label: "Parsing bond data", status: StepStatus.PENDING},
-        {id: "fetch", label: "Fetching your bonds from Wealthfolio", status: StepStatus.PENDING},
-        {id: "match", label: "Matching bond prices", status: StepStatus.PENDING},
-        {id: "update", label: "Updating prices", status: StepStatus.PENDING},
+        { id: "download", label: "Downloading bond rates file", status: StepStatus.PENDING },
+        { id: "parse", label: "Parsing bond data", status: StepStatus.PENDING },
+        { id: "fetch", label: "Fetching your bonds from Wealthfolio", status: StepStatus.PENDING },
+        { id: "match", label: "Matching bond prices", status: StepStatus.PENDING },
+        { id: "update", label: "Updating prices", status: StepStatus.PENDING },
     ]);
 
     const [bondData, setBondData] = useState<AllBonds | null>(null);
     const [userBonds, setUserBonds] = useState<string[]>([]);
     const [matchedBonds, setMatchedBonds] = useState<Map<string, Bond>>(new Map());
-    const [quoteStats, setQuoteStats] = useState<QuoteStats>({totalQuotes: 0, addedQuotes: 0});
+    const [quoteStats, setQuoteStats] = useState<QuoteStats>({ totalQuotes: 0, addedQuotes: 0 });
 
     const updateStepStatus = (stepId: string, status: StepStatus, error?: string) => {
-        setSteps((prev) =>
-            prev.map((step) =>
-                step.id === stepId ? {...step, status, error} : step
-            )
-        );
+        setSteps((prev) => prev.map((step) => (step.id === stepId ? { ...step, status, error } : step)));
     };
 
-    const matchBondPrices = (
-        bonds: AllBonds,
-        userBondSymbols: string[]
-    ): Map<string, Bond> => {
+    const matchBondPrices = (bonds: AllBonds, userBondSymbols: string[]): Map<string, Bond> => {
         const matches = new Map<string, Bond>();
 
         userBondSymbols.forEach((symbol) => {
@@ -219,65 +206,51 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
             // Step 5: Update
             updateStepStatus("update", StepStatus.IN_PROGRESS);
             await updateBondPrices(ctx, matches, (added, total) => {
-                setQuoteStats({addedQuotes: added, totalQuotes: total});
+                setQuoteStats({ addedQuotes: added, totalQuotes: total });
             });
             updateStepStatus("update", StepStatus.COMPLETED);
         } catch (error) {
             console.error("Error during process:", error);
             const currentInProgress = steps.find((s) => s.status === StepStatus.IN_PROGRESS);
             if (currentInProgress) {
-                updateStepStatus(
-                    currentInProgress.id,
-                    StepStatus.ERROR,
-                    error instanceof Error ? error.message : "Unknown error"
-                );
+                updateStepStatus(currentInProgress.id, StepStatus.ERROR, error instanceof Error ? error.message : "Unknown error");
             }
         }
     };
 
     useEffect(() => {
         // noinspection JSIgnoredPromiseFromCall
-        startProcess()
+        startProcess();
     }, []);
 
     return (
         <div className="p-6">
             <Card>
                 <CardContent className="p-6">
-                    <h2 className="text-lg font-semibold text-foreground mb-6">
-                        Updating Polish Bond Prices
-                    </h2>
+                    <h2 className="text-lg font-semibold text-foreground mb-6">Updating Polish Bond Prices</h2>
 
                     <div className="space-y-3">
                         {steps.map((step, index) => (
                             <motion.div
                                 key={step.id}
-                                initial={{opacity: 0, x: -20}}
-                                animate={{opacity: 1, x: 0}}
-                                transition={{delay: index * 0.1}}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: index * 0.1 }}
                                 className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
                                     step.status === StepStatus.COMPLETED
                                         ? "bg-muted/30 border-border/50"
                                         : step.status === StepStatus.IN_PROGRESS
-                                            ? "bg-background border-primary/50"
-                                            : step.status === StepStatus.ERROR
-                                                ? "bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/20"
-                                                : "bg-background/50 border-border/30"
+                                          ? "bg-background border-primary/50"
+                                          : step.status === StepStatus.ERROR
+                                            ? "bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/20"
+                                            : "bg-background/50 border-border/30"
                                 }`}
                             >
                                 <div className="flex-shrink-0">
-                                    {step.status === StepStatus.IN_PROGRESS && (
-                                        <Icons.Loader className="h-5 w-5 text-primary animate-spin"/>
-                                    )}
-                                    {step.status === StepStatus.COMPLETED && (
-                                        <Icons.Check className="h-5 w-5 text-green-600 dark:text-green-400"/>
-                                    )}
-                                    {step.status === StepStatus.ERROR && (
-                                        <Icons.AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400"/>
-                                    )}
-                                    {step.status === StepStatus.PENDING && (
-                                        <div className="h-5 w-5 rounded-full border-2 border-border/50"/>
-                                    )}
+                                    {step.status === StepStatus.IN_PROGRESS && <Icons.Loader className="h-5 w-5 text-primary animate-spin" />}
+                                    {step.status === StepStatus.COMPLETED && <Icons.Check className="h-5 w-5 text-green-600 dark:text-green-400" />}
+                                    {step.status === StepStatus.ERROR && <Icons.AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />}
+                                    {step.status === StepStatus.PENDING && <div className="h-5 w-5 rounded-full border-2 border-border/50" />}
                                 </div>
 
                                 <div className="flex-grow">
@@ -286,28 +259,20 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
                                             step.status === StepStatus.COMPLETED
                                                 ? "text-muted-foreground"
                                                 : step.status === StepStatus.IN_PROGRESS
-                                                    ? "text-foreground"
-                                                    : step.status === StepStatus.ERROR
-                                                        ? "text-red-600 dark:text-red-400"
-                                                        : "text-muted-foreground/70"
+                                                  ? "text-foreground"
+                                                  : step.status === StepStatus.ERROR
+                                                    ? "text-red-600 dark:text-red-400"
+                                                    : "text-muted-foreground/70"
                                         }`}
                                     >
                                         {step.label}
                                     </p>
-                                    {step.error && (
-                                        <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-                                            {step.error}
-                                        </p>
-                                    )}
+                                    {step.error && <p className="text-xs text-red-600 dark:text-red-400 mt-1">{step.error}</p>}
                                 </div>
 
                                 {step.status === StepStatus.COMPLETED && (
-                                    <motion.div
-                                        initial={{scale: 0}}
-                                        animate={{scale: 1}}
-                                        className="flex-shrink-0"
-                                    >
-                                        <div className="h-2 w-2 rounded-full bg-green-600 dark:bg-green-400"/>
+                                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex-shrink-0">
+                                        <div className="h-2 w-2 rounded-full bg-green-600 dark:bg-green-400" />
                                     </motion.div>
                                 )}
                             </motion.div>
@@ -316,19 +281,15 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
 
                     {bondData && (
                         <motion.div
-                            initial={{opacity: 0, y: 10}}
-                            animate={{opacity: 1, y: 0}}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
                             className="mt-6 p-4 rounded-lg bg-muted/30 border border-border"
                         >
                             <p className="text-sm text-muted-foreground">
                                 Loaded {bondData.edo.size} EDO bonds and {bondData.rod.size} ROD bonds
                             </p>
-                            <p className="text-sm text-muted-foreground mt-1">
-                                Found {userBonds.length} bonds in your portfolio.
-                            </p>
-                            <p className="text-sm text-muted-foreground mt-1">
-                                Matched prices for {matchedBonds.size} bonds.
-                            </p>
+                            <p className="text-sm text-muted-foreground mt-1">Found {userBonds.length} bonds in your portfolio.</p>
+                            <p className="text-sm text-muted-foreground mt-1">Matched prices for {matchedBonds.size} bonds.</p>
                             {quoteStats.totalQuotes > 0 && (
                                 <p className="text-sm text-muted-foreground mt-1">
                                     Adding quotes: {quoteStats.addedQuotes} / {quoteStats.totalQuotes}
