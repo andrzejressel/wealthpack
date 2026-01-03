@@ -3,6 +3,7 @@ import {motion} from "motion/react";
 import {Card, CardContent, Icons} from "@wealthfolio/ui";
 import type {AddonContext, Quote} from "@wealthfolio/addon-sdk";
 import {readBonds, type AllBonds, Bond} from "../service/bond-rate/bonds-reader";
+import {formatDateISO} from "../lib";
 
 interface PolishBondsPriceSetterProps {
     ctx: AddonContext;
@@ -68,21 +69,21 @@ async function fetchBondsFromWealthfolio(ctx: AddonContext): Promise<string[]> {
     return Array.from(bondSymbols);
 }
 
-async function updateBondPrices(
-    ctx: AddonContext, 
+export async function updateBondPrices(
+    ctx: AddonContext,
     matchedBonds: Map<string, Bond>,
     onProgress?: (added: number, total: number) => void
 ): Promise<void> {
     // Step 1: Precalculate all quotes to add
     const quotesToAdd: Quote[] = [];
-    
+
     for (const [symbol, bond] of matchedBonds) {
         // Fetch existing quotes for this symbol to avoid duplicates
         let existingQuotes: Set<string>;
         try {
             const quotes = await ctx.api.quotes.getHistory(symbol);
-            // Create a set of existing quote dates for quick lookup
-            existingQuotes = new Set(quotes.map((q: any) => new Date(q.timestamp).toDateString()));
+            // Create a set of existing quote dates for quick lookup (ISO 8601 date format: YYYY-MM-DD)
+            existingQuotes = new Set(quotes.map((q) => q.id));
         } catch (error) {
             // If fetching fails, assume no existing quotes
             console.warn(`Could not fetch existing quotes for ${symbol}:`, error);
@@ -95,20 +96,24 @@ async function updateBondPrices(
         // Create a quote for each day from initial date to buyout date
         for (let dayIndex = 0; dayIndex < values.length; dayIndex++) {
             const price = values[dayIndex];
-            
+
             // Calculate the date for this value
             const quoteDate = new Date(bond.initialDate);
             quoteDate.setDate(quoteDate.getDate() + dayIndex);
 
+            // Format date as ISO 8601 (YYYY-MM-DD)
+            const quoteDateISO = formatDateISO(quoteDate);
+
+            const id = `${symbol}-${quoteDateISO}`;
+
             // Skip if quote already exists for this date
-            const quoteDateString = quoteDate.toDateString();
-            if (existingQuotes.has(quoteDateString)) {
+            if (existingQuotes.has(id)) {
                 continue;
             }
 
             // Create quote object for the API
             const quote: Quote = {
-                id: `${symbol}-${quoteDate.toISOString()}`,
+                id: id,
                 createdAt: quoteDate.toISOString(),
                 dataSource: "MANUAL",
                 timestamp: quoteDate.toISOString(),
@@ -131,7 +136,7 @@ async function updateBondPrices(
     for (let i = 0; i < quotesToAdd.length; i++) {
         const quote = quotesToAdd[i];
         await ctx.api.quotes.update(quote.symbol, quote);
-        
+
         // Report progress
         if (onProgress) {
             onProgress(i + 1, totalQuotes);
@@ -151,7 +156,7 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
     const [bondData, setBondData] = useState<AllBonds | null>(null);
     const [userBonds, setUserBonds] = useState<string[]>([]);
     const [matchedBonds, setMatchedBonds] = useState<Map<string, Bond>>(new Map());
-    const [quoteStats, setQuoteStats] = useState<QuoteStats>({ totalQuotes: 0, addedQuotes: 0 });
+    const [quoteStats, setQuoteStats] = useState<QuoteStats>({totalQuotes: 0, addedQuotes: 0});
 
     const updateStepStatus = (stepId: string, status: StepStatus, error?: string) => {
         setSteps((prev) =>
@@ -214,7 +219,7 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
             // Step 5: Update
             updateStepStatus("update", StepStatus.IN_PROGRESS);
             await updateBondPrices(ctx, matches, (added, total) => {
-                setQuoteStats({ addedQuotes: added, totalQuotes: total });
+                setQuoteStats({addedQuotes: added, totalQuotes: total});
             });
             updateStepStatus("update", StepStatus.COMPLETED);
         } catch (error) {

@@ -30,7 +30,7 @@ export default defineConfig({
             },
         },
         outDir: "dist",
-        minify: process.env.DEV_ENV === "true" ? false : "esbuild",
+        minify: false,
         sourcemap: process.env.DEV_ENV === "true" ? "inline" : false,
         watch: process.env.DEV_ENV === "true"
             ? {
