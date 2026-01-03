@@ -30,16 +30,15 @@ export default defineConfig({
             },
         },
         outDir: "dist",
-        minify: "esbuild",
-        sourcemap: "inline",
-        // sourcemap: false,
-        watch: process.env.CI
-            ? null
-            : {
-                  // Watch mode options for better hot reloading
-                  include: ["src/**"],
-                  exclude: ["node_modules/**", "dist/**"],
-              },
+        minify: process.env.DEV_ENV === "true" ? false : "esbuild",
+        sourcemap: process.env.DEV_ENV === "true" ? "inline" : false,
+        watch: process.env.DEV_ENV === "true"
+            ? {
+                // Watch mode options for better hot reloading
+                include: ["src/**"],
+                exclude: ["node_modules/**", "dist/**"],
+            }
+            : null,
     },
     test: {
         globals: true,

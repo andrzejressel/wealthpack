@@ -155,6 +155,7 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
     };
 
     useEffect(() => {
+        // noinspection JSIgnoredPromiseFromCall
         startProcess()
     }, []);
 
