@@ -1043,17 +1043,17 @@ const createLucideIcon = (iconName, iconNode) => {
   Component.displayName = toPascalCase(iconName);
   return Component;
 };
-const __iconNode$i = [
+const __iconNode$k = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$i);
-const __iconNode$h = [
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$k);
+const __iconNode$j = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$h);
-const __iconNode$g = [
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$j);
+const __iconNode$i = [
   [
     "path",
     {
@@ -1063,54 +1063,71 @@ const __iconNode$g = [
   ],
   ["rect", { x: "14", y: "2", width: "8", height: "8", rx: "1", key: "88lufb" }]
 ];
-const Blocks = createLucideIcon("blocks", __iconNode$g);
-const __iconNode$f = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$f);
-const __iconNode$e = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$e);
-const __iconNode$d = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$d);
-const __iconNode$c = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-const ChevronUp = createLucideIcon("chevron-up", __iconNode$c);
-const __iconNode$b = [
+const Blocks = createLucideIcon("blocks", __iconNode$i);
+const __iconNode$h = [
+  ["path", { d: "M5 21v-6", key: "1hz6c0" }],
+  ["path", { d: "M12 21V9", key: "uvy0l4" }],
+  ["path", { d: "M19 21V3", key: "11j9sm" }]
+];
+const ChartNoAxesColumnIncreasing = createLucideIcon("chart-no-axes-column-increasing", __iconNode$h);
+const __iconNode$g = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$g);
+const __iconNode$f = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$f);
+const __iconNode$e = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$e);
+const __iconNode$d = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+const ChevronUp = createLucideIcon("chevron-up", __iconNode$d);
+const __iconNode$c = [
   ["path", { d: "m7 15 5 5 5-5", key: "1hf1tw" }],
   ["path", { d: "m7 9 5-5 5 5", key: "sgt6xg" }]
 ];
-const ChevronsUpDown = createLucideIcon("chevrons-up-down", __iconNode$b);
-const __iconNode$a = [
+const ChevronsUpDown = createLucideIcon("chevrons-up-down", __iconNode$c);
+const __iconNode$b = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
   ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
 ];
-const CircleAlert = createLucideIcon("circle-alert", __iconNode$a);
-const __iconNode$9 = [
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$b);
+const __iconNode$a = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const CircleCheck = createLucideIcon("circle-check", __iconNode$9);
-const __iconNode$8 = [
+const CircleCheck = createLucideIcon("circle-check", __iconNode$a);
+const __iconNode$9 = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "m15 9-6 6", key: "1uzhvr" }],
   ["path", { d: "m9 9 6 6", key: "z0biqf" }]
 ];
-const CircleX = createLucideIcon("circle-x", __iconNode$8);
-const __iconNode$7 = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
-const Circle = createLucideIcon("circle", __iconNode$7);
-const __iconNode$6 = [
+const CircleX = createLucideIcon("circle-x", __iconNode$9);
+const __iconNode$8 = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
+const Circle = createLucideIcon("circle", __iconNode$8);
+const __iconNode$7 = [
   ["line", { x1: "12", x2: "12", y1: "2", y2: "22", key: "7eqyqh" }],
   ["path", { d: "M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6", key: "1b0p4s" }]
 ];
-const DollarSign = createLucideIcon("dollar-sign", __iconNode$6);
-const __iconNode$5 = [
+const DollarSign = createLucideIcon("dollar-sign", __iconNode$7);
+const __iconNode$6 = [
   ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", key: "1rqfz7" }],
   ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
   ["path", { d: "M10 9H8", key: "b1mrlr" }],
   ["path", { d: "M16 13H8", key: "t4e002" }],
   ["path", { d: "M16 17H8", key: "z1uh3a" }]
 ];
-const FileText = createLucideIcon("file-text", __iconNode$5);
-const __iconNode$4 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$4);
+const FileText = createLucideIcon("file-text", __iconNode$6);
+const __iconNode$5 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$5);
+const __iconNode$4 = [
+  ["path", { d: "M12 2v4", key: "3427ic" }],
+  ["path", { d: "m16.2 7.8 2.9-2.9", key: "r700ao" }],
+  ["path", { d: "M18 12h4", key: "wj9ykh" }],
+  ["path", { d: "m16.2 16.2 2.9 2.9", key: "1bxg5t" }],
+  ["path", { d: "M12 18v4", key: "jadmvz" }],
+  ["path", { d: "m4.9 19.1 2.9-2.9", key: "bwix9q" }],
+  ["path", { d: "M2 12h4", key: "j09sii" }],
+  ["path", { d: "m4.9 4.9 2.9 2.9", key: "giyufr" }]
+];
+const Loader = createLucideIcon("loader", __iconNode$4);
 const __iconNode$3 = [
   ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
   ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
@@ -23492,7 +23509,9 @@ var Icons = {
   CheckCircle: CircleCheck,
   Search,
   DollarSign,
+  BarChart: ChartNoAxesColumnIncreasing,
   Spinner: LoaderCircle,
+  Loader,
   Trash,
   Import: Upload,
   FileText,
@@ -60651,6 +60670,371 @@ function getServiceImplementation(value) {
       return bossaReader;
   }
 }
+class Bond {
+  constructor(id2, initialDate, saleEnd, buyoutDate, generator) {
+    this.values = null;
+    this.id = id2;
+    this.initialDate = initialDate;
+    this.saleEnd = saleEnd;
+    this.buyoutDate = buyoutDate;
+    this.valueGenerator = generator;
+  }
+  getValues() {
+    if (this.values === null) {
+      this.values = this.valueGenerator.calculateDailyBondValues(this.initialDate);
+    }
+    return this.values;
+  }
+}
+class ValueGenerator {
+  constructor(initialValue) {
+    this.yearlyReturns = [];
+    this.initialValue = initialValue;
+  }
+  addYearlyReturn(returnRate) {
+    this.yearlyReturns.push(returnRate);
+  }
+  /**
+   * Calculates bond values for every single day starting from the given date
+   * Returns a list of bond values with daily compounding interest
+   */
+  calculateDailyBondValues(startDate) {
+    const values = [this.initialValue];
+    let currentValue = this.initialValue;
+    for (let i = 0; i < this.yearlyReturns.length; i++) {
+      const annualReturnRate = this.yearlyReturns[i];
+      const yearStartDate = new Date(startDate);
+      yearStartDate.setFullYear(startDate.getFullYear() + i);
+      const yearEndDate = new Date(yearStartDate);
+      yearEndDate.setFullYear(yearStartDate.getFullYear() + 1);
+      const daysInYear = Math.floor((yearEndDate.getTime() - yearStartDate.getTime()) / (1e3 * 60 * 60 * 24));
+      for (let day = 1; day <= daysInYear; day++) {
+        const additionalValue = currentValue * (day / daysInYear) * annualReturnRate;
+        const todayValue = currentValue + additionalValue;
+        values.push(this.twoDecimalPlaces(todayValue));
+      }
+      currentValue = values[values.length - 1];
+    }
+    return values;
+  }
+  twoDecimalPlaces(value) {
+    return Math.round(value * 100) / 100;
+  }
+}
+function extractBondType(workbook, bondType, bondLengthInYears) {
+  const bonds = /* @__PURE__ */ new Map();
+  const worksheet = workbook.Sheets[bondType];
+  if (!worksheet) {
+    throw new Error(`Failed to get worksheet [${bondType}]`);
+  }
+  const data = utils.sheet_to_json(worksheet, { header: 1 });
+  for (let rowId = 2; rowId < data.length; rowId++) {
+    const row = data[rowId];
+    const firstCell = row[0];
+    const [, , , saleStart, saleEnd, , , , , ...rates] = row;
+    const bondId = { value: firstCell };
+    const buyoutDate = new Date(saleStart);
+    buyoutDate.setFullYear(saleStart.getFullYear() + bondLengthInYears);
+    const generator = new ValueGenerator(100);
+    for (let i = 0; i < bondLengthInYears; i++) {
+      const rate = rates[i];
+      if (!rate) {
+        continue;
+      }
+      if (typeof rate !== "number") {
+        throw new Error(`Cannot extract yearly return from cell [${rate}], row id: [${rowId}], column: [${i}]`);
+      }
+      const roundedValue = Math.round(rate * 1e5) / 1e5;
+      generator.addYearlyReturn(roundedValue);
+    }
+    const bond = new Bond(bondId, saleStart, saleEnd, buyoutDate, generator);
+    bonds.set(bondId.value, bond);
+  }
+  return bonds;
+}
+function readBonds(fileData) {
+  const workbook = readSync(fileData, { cellDates: true });
+  const edo = extractBondType(workbook, "EDO", 10);
+  const rod = extractBondType(workbook, "ROD", 12);
+  return { edo, rod };
+}
+function formatDateISO(date) {
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")}`;
+}
+async function mockDownloadBondsFile() {
+  const url = "https://www.gov.pl/attachment/b3ec5054-0cc1-45ce-900a-6242e284e65c";
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15e3);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) {
+      throw new Error(`Download failed: ${res.status} ${res.statusText}`);
+    }
+    return await res.arrayBuffer();
+  } catch (err) {
+    throw new Error(`Failed to download bonds file: ${err instanceof Error ? err.message : String(err)}`);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+async function fetchBondsFromWealthfolio(ctx) {
+  await new Promise((resolve) => setTimeout(resolve, 800));
+  const accounts = await ctx.api.accounts.getAll();
+  const bondSymbols = /* @__PURE__ */ new Set();
+  for (const account of accounts) {
+    const activities = await ctx.api.activities.getAll(account.id);
+    activities.forEach((activity) => {
+      const symbol = activity.assetId;
+      if (symbol?.startsWith("EDO") || symbol?.startsWith("ROD")) {
+        bondSymbols.add(symbol);
+      }
+    });
+  }
+  return Array.from(bondSymbols);
+}
+async function updateBondPrices(ctx, matchedBonds, onProgress) {
+  const quotesToAdd = [];
+  for (const [symbol, bond] of matchedBonds) {
+    let existingQuotes;
+    try {
+      const quotes = await ctx.api.quotes.getHistory(symbol);
+      existingQuotes = new Set(quotes.map((q) => q.id));
+    } catch (error) {
+      console.warn(`Could not fetch existing quotes for ${symbol}:`, error);
+      existingQuotes = /* @__PURE__ */ new Set();
+    }
+    const values = bond.getValues();
+    for (let dayIndex = 0; dayIndex < values.length; dayIndex++) {
+      const price = values[dayIndex];
+      const quoteDate = new Date(bond.initialDate);
+      quoteDate.setDate(quoteDate.getDate() + dayIndex);
+      const quoteDateISO = formatDateISO(quoteDate);
+      const id2 = `${symbol}-${quoteDateISO}`;
+      if (existingQuotes.has(id2)) {
+        continue;
+      }
+      const quote = {
+        id: id2,
+        createdAt: quoteDate.toISOString(),
+        dataSource: "MANUAL",
+        timestamp: quoteDate.toISOString(),
+        symbol,
+        open: price,
+        high: price,
+        low: price,
+        volume: 0,
+        close: price,
+        adjclose: price,
+        currency: "PLN"
+      };
+      quotesToAdd.push(quote);
+    }
+  }
+  const totalQuotes = quotesToAdd.length;
+  for (let i = 0; i < quotesToAdd.length; i++) {
+    const quote = quotesToAdd[i];
+    await ctx.api.quotes.update(quote.symbol, quote);
+    if (onProgress) {
+      onProgress(i + 1, totalQuotes);
+    }
+  }
+}
+const PolishBondsPriceSetter = ({ ctx }) => {
+  const [steps, setSteps] = React.useState([
+    {
+      id: "download",
+      label: "Downloading bond rates file",
+      status: "pending"
+      /* PENDING */
+    },
+    {
+      id: "parse",
+      label: "Parsing bond data",
+      status: "pending"
+      /* PENDING */
+    },
+    {
+      id: "fetch",
+      label: "Fetching your bonds from Wealthfolio",
+      status: "pending"
+      /* PENDING */
+    },
+    {
+      id: "match",
+      label: "Matching bond prices",
+      status: "pending"
+      /* PENDING */
+    },
+    {
+      id: "update",
+      label: "Updating prices",
+      status: "pending"
+      /* PENDING */
+    }
+  ]);
+  const [bondData, setBondData] = React.useState(null);
+  const [userBonds, setUserBonds] = React.useState([]);
+  const [matchedBonds, setMatchedBonds] = React.useState(/* @__PURE__ */ new Map());
+  const [quoteStats, setQuoteStats] = React.useState({ totalQuotes: 0, addedQuotes: 0 });
+  const updateStepStatus = (stepId, status, error) => {
+    setSteps((prev) => prev.map((step) => step.id === stepId ? { ...step, status, error } : step));
+  };
+  const matchBondPrices = (bonds, userBondSymbols) => {
+    const matches = /* @__PURE__ */ new Map();
+    userBondSymbols.forEach((symbol) => {
+      const edoBond = bonds.edo.get(symbol);
+      const rodBond = bonds.rod.get(symbol);
+      const foundBond = edoBond || rodBond;
+      if (foundBond) {
+        matches.set(symbol, foundBond);
+      }
+    });
+    console.log("Matched Bonds:", matches);
+    return matches;
+  };
+  const startProcess = async () => {
+    try {
+      console.log("Starting Polish Bonds Price Setter process...");
+      updateStepStatus(
+        "download",
+        "in_progress"
+        /* IN_PROGRESS */
+      );
+      const fileData = await mockDownloadBondsFile();
+      updateStepStatus(
+        "download",
+        "completed"
+        /* COMPLETED */
+      );
+      updateStepStatus(
+        "parse",
+        "in_progress"
+        /* IN_PROGRESS */
+      );
+      const allBonds = readBonds(fileData);
+      setBondData(allBonds);
+      updateStepStatus(
+        "parse",
+        "completed"
+        /* COMPLETED */
+      );
+      updateStepStatus(
+        "fetch",
+        "in_progress"
+        /* IN_PROGRESS */
+      );
+      const userBondsIds = await fetchBondsFromWealthfolio(ctx);
+      setUserBonds(userBondsIds);
+      updateStepStatus(
+        "fetch",
+        "completed"
+        /* COMPLETED */
+      );
+      updateStepStatus(
+        "match",
+        "in_progress"
+        /* IN_PROGRESS */
+      );
+      const matches = matchBondPrices(allBonds, userBondsIds);
+      setMatchedBonds(matches);
+      updateStepStatus(
+        "match",
+        "completed"
+        /* COMPLETED */
+      );
+      updateStepStatus(
+        "update",
+        "in_progress"
+        /* IN_PROGRESS */
+      );
+      await updateBondPrices(ctx, matches, (added, total) => {
+        setQuoteStats({ addedQuotes: added, totalQuotes: total });
+      });
+      updateStepStatus(
+        "update",
+        "completed"
+        /* COMPLETED */
+      );
+    } catch (error) {
+      console.error("Error during process:", error);
+      const currentInProgress = steps.find(
+        (s) => s.status === "in_progress"
+        /* IN_PROGRESS */
+      );
+      if (currentInProgress) {
+        updateStepStatus(currentInProgress.id, "error", error instanceof Error ? error.message : "Unknown error");
+      }
+    }
+  };
+  React.useEffect(() => {
+    startProcess();
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-lg font-semibold text-foreground mb-6", children: "Updating Polish Bond Prices" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-3", children: steps.map((step, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        initial: { opacity: 0, x: -20 },
+        animate: { opacity: 1, x: 0 },
+        transition: { delay: index2 * 0.1 },
+        className: `flex items-center gap-3 p-3 rounded-lg border transition-colors ${step.status === "completed" ? "bg-muted/30 border-border/50" : step.status === "in_progress" ? "bg-background border-primary/50" : step.status === "error" ? "bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-900/20" : "bg-background/50 border-border/30"}`,
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-shrink-0", children: [
+            step.status === "in_progress" && /* @__PURE__ */ jsxRuntimeExports.jsx(Icons.Loader, { className: "h-5 w-5 text-primary animate-spin" }),
+            step.status === "completed" && /* @__PURE__ */ jsxRuntimeExports.jsx(Icons.Check, { className: "h-5 w-5 text-green-600 dark:text-green-400" }),
+            step.status === "error" && /* @__PURE__ */ jsxRuntimeExports.jsx(Icons.AlertCircle, { className: "h-5 w-5 text-red-600 dark:text-red-400" }),
+            step.status === "pending" && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-5 w-5 rounded-full border-2 border-border/50" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex-grow", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "p",
+              {
+                className: `text-sm font-medium ${step.status === "completed" ? "text-muted-foreground" : step.status === "in_progress" ? "text-foreground" : step.status === "error" ? "text-red-600 dark:text-red-400" : "text-muted-foreground/70"}`,
+                children: step.label
+              }
+            ),
+            step.error && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-red-600 dark:text-red-400 mt-1", children: step.error })
+          ] }),
+          step.status === "completed" && /* @__PURE__ */ jsxRuntimeExports.jsx(motion.div, { initial: { scale: 0 }, animate: { scale: 1 }, className: "flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-2 w-2 rounded-full bg-green-600 dark:bg-green-400" }) })
+        ]
+      },
+      step.id
+    )) }),
+    bondData && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        initial: { opacity: 0, y: 10 },
+        animate: { opacity: 1, y: 0 },
+        className: "mt-6 p-4 rounded-lg bg-muted/30 border border-border",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground", children: [
+            "Loaded ",
+            bondData.edo.size,
+            " EDO bonds and ",
+            bondData.rod.size,
+            " ROD bonds"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground mt-1", children: [
+            "Found ",
+            userBonds.length,
+            " bonds in your portfolio."
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground mt-1", children: [
+            "Matched prices for ",
+            matchedBonds.size,
+            " bonds."
+          ] }),
+          quoteStats.totalQuotes > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-muted-foreground mt-1", children: [
+            "Adding quotes: ",
+            quoteStats.addedQuotes,
+            " / ",
+            quoteStats.totalQuotes
+          ] })
+        ]
+      }
+    )
+  ] }) }) });
+};
 async function getAllTransactionIds(ctx, accountId) {
   const activities = await ctx.api.activities.getAll(accountId);
   const transactionIds = /* @__PURE__ */ new Set();
@@ -60736,14 +61120,27 @@ function enable(ctx) {
     route: "/addon/wealthpack",
     order: 100
   });
+  const sidebarItemBondPrices = ctx.sidebar.addItem({
+    id: "wealthpack-bond-prices",
+    label: "Wealthpack Bond Prices",
+    icon: /* @__PURE__ */ jsxRuntimeExports.jsx(Icons.BarChart, { className: "h-5 w-5" }),
+    route: "/addon/wealthpack-bond-prices",
+    order: 101
+  });
   const Wrapper = () => /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsx(AddonExample, { ctx }) });
   ctx.router.add({
     path: "/addon/wealthpack",
     component: React.lazy(() => Promise.resolve({ default: Wrapper }))
   });
+  const WrapperBondPrices = () => /* @__PURE__ */ jsxRuntimeExports.jsx(QueryClientProvider, { client: queryClient, children: /* @__PURE__ */ jsxRuntimeExports.jsx(PolishBondsPriceSetter, { ctx }) });
+  ctx.router.add({
+    path: "/addon/wealthpack-bond-prices",
+    component: React.lazy(() => Promise.resolve({ default: WrapperBondPrices }))
+  });
   ctx.onDisable(() => {
     try {
       sidebarItem.remove();
+      sidebarItemBondPrices.remove();
     } catch (err) {
       ctx.api.logger.error(`Failed to remove sidebar item: ${err}`);
     }
