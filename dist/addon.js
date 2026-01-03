@@ -61055,7 +61055,9 @@ function AddonExample({ ctx }) {
   const [accountId, setAccountId] = React.useState(null);
   const [file, setFile] = React.useState(null);
   const [service, setService] = React.useState(null);
+  const [errorMessage, setErrorMessage] = React.useState(null);
   async function handleSend() {
+    setErrorMessage(null);
     if (!file) {
       alert("Please upload a file");
       return;
@@ -61068,27 +61070,36 @@ function AddonExample({ ctx }) {
       alert("Please select a service");
       return;
     }
-    const historiaFileContent = await file.arrayBuffer();
-    const existingTransactionIds = await getAllTransactionIds(ctx, accountId);
-    const transactions = getServiceImplementation(service).readFile(historiaFileContent);
-    const creates = [];
-    for (let transaction of transactions) {
-      creates.push({
-        ...transaction,
-        accountId
+    try {
+      const historiaFileContent = await file.arrayBuffer();
+      const existingTransactionIds = await getAllTransactionIds(ctx, accountId);
+      const transactions = getServiceImplementation(service).readFile(historiaFileContent);
+      const creates = [];
+      for (let transaction of transactions) {
+        creates.push({
+          ...transaction,
+          accountId
+        });
+      }
+      await ctx.api.activities.saveMany({
+        creates,
+        deleteIds: Array.from(existingTransactionIds)
       });
+      alert(`Imported ${transactions.length} transactions`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      setErrorMessage(message);
     }
-    await ctx.api.activities.saveMany({
-      creates,
-      deleteIds: Array.from(existingTransactionIds)
-    });
-    alert(`Imported ${transactions.length} transactions`);
   }
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CardContent, { className: "p-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
     isLoading && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Loading accounts..." }),
     isError && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
       "Error loading accounts: ",
       error.message
+    ] }),
+    errorMessage && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-red-600 text-sm", children: [
+      "Error: ",
+      errorMessage
     ] }),
     data && data.length === 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "No accounts found." }),
     data && data.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { onValueChange: setAccountId, children: [
