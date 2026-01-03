@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 import {motion} from "motion/react";
 import {Card, CardContent, Icons} from "@wealthfolio/ui";
-import type {AddonContext} from "@wealthfolio/addon-sdk";
+import type {AddonContext, Quote} from "@wealthfolio/addon-sdk";
 import {readBonds, type AllBonds, Bond} from "../service/bond-rate/bonds-reader";
 
 interface PolishBondsPriceSetterProps {
@@ -20,6 +20,11 @@ interface Step {
     label: string;
     status: StepStatus;
     error?: string;
+}
+
+interface QuoteStats {
+    totalQuotes: number;
+    addedQuotes: number;
 }
 
 async function mockDownloadBondsFile(): Promise<ArrayBuffer> {
@@ -63,7 +68,14 @@ async function fetchBondsFromWealthfolio(ctx: AddonContext): Promise<string[]> {
     return Array.from(bondSymbols);
 }
 
-async function updateBondPrices(ctx: AddonContext, matchedBonds: Map<string, Bond>): Promise<void> {
+async function updateBondPrices(
+    ctx: AddonContext, 
+    matchedBonds: Map<string, Bond>,
+    onProgress?: (added: number, total: number) => void
+): Promise<void> {
+    // Step 1: Precalculate all quotes to add
+    const quotesToAdd: Quote[] = [];
+    
     for (const [symbol, bond] of matchedBonds) {
         // Fetch existing quotes for this symbol to avoid duplicates
         let existingQuotes: Set<string>;
@@ -95,7 +107,7 @@ async function updateBondPrices(ctx: AddonContext, matchedBonds: Map<string, Bon
             }
 
             // Create quote object for the API
-            const quote = {
+            const quote: Quote = {
                 id: `${symbol}-${quoteDate.toISOString()}`,
                 createdAt: quoteDate.toISOString(),
                 dataSource: "MANUAL",
@@ -110,7 +122,19 @@ async function updateBondPrices(ctx: AddonContext, matchedBonds: Map<string, Bon
                 currency: "PLN"
             };
 
-            await ctx.api.quotes.update(symbol, quote);
+            quotesToAdd.push(quote);
+        }
+    }
+
+    // Step 2: Add all quotes with progress tracking
+    const totalQuotes = quotesToAdd.length;
+    for (let i = 0; i < quotesToAdd.length; i++) {
+        const quote = quotesToAdd[i];
+        await ctx.api.quotes.update(quote.symbol, quote);
+        
+        // Report progress
+        if (onProgress) {
+            onProgress(i + 1, totalQuotes);
         }
     }
 }
@@ -127,6 +151,7 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
     const [bondData, setBondData] = useState<AllBonds | null>(null);
     const [userBonds, setUserBonds] = useState<string[]>([]);
     const [matchedBonds, setMatchedBonds] = useState<Map<string, Bond>>(new Map());
+    const [quoteStats, setQuoteStats] = useState<QuoteStats>({ totalQuotes: 0, addedQuotes: 0 });
 
     const updateStepStatus = (stepId: string, status: StepStatus, error?: string) => {
         setSteps((prev) =>
@@ -188,7 +213,9 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
 
             // Step 5: Update
             updateStepStatus("update", StepStatus.IN_PROGRESS);
-            await updateBondPrices(ctx, matches);
+            await updateBondPrices(ctx, matches, (added, total) => {
+                setQuoteStats({ addedQuotes: added, totalQuotes: total });
+            });
             updateStepStatus("update", StepStatus.COMPLETED);
         } catch (error) {
             console.error("Error during process:", error);
@@ -297,6 +324,11 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
                             <p className="text-sm text-muted-foreground mt-1">
                                 Matched prices for {matchedBonds.size} bonds.
                             </p>
+                            {quoteStats.totalQuotes > 0 && (
+                                <p className="text-sm text-muted-foreground mt-1">
+                                    Adding quotes: {quoteStats.addedQuotes} / {quoteStats.totalQuotes}
+                                </p>
+                            )}
                         </motion.div>
                     )}
                 </CardContent>
