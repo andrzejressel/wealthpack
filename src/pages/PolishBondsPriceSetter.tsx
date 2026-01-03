@@ -1,8 +1,7 @@
 import {useState, useEffect} from "react";
-import {motion, AnimatePresence} from "motion/react";
+import {motion} from "motion/react";
 import {Card, CardContent, Icons} from "@wealthfolio/ui";
 import type {AddonContext} from "@wealthfolio/addon-sdk";
-import {useQuery} from "@tanstack/react-query";
 import {readBonds, type AllBonds, Bond} from "../service/bond-rate/bonds-reader";
 
 interface PolishBondsPriceSetterProps {
@@ -34,9 +33,7 @@ async function mockDownloadBondsFile(): Promise<ArrayBuffer> {
         if (!res.ok) {
             throw new Error(`Download failed: ${res.status} ${res.statusText}`);
         }
-        const data = await res.arrayBuffer();
-        // return new ArrayBuffer()
-        return data;
+        return await res.arrayBuffer();
     } catch (err) {
         throw new Error(
             `Failed to download bonds file: ${err instanceof Error ? err.message : String(err)}`
@@ -64,6 +61,58 @@ async function fetchBondsFromWealthfolio(ctx: AddonContext): Promise<string[]> {
     }
 
     return Array.from(bondSymbols);
+}
+
+async function updateBondPrices(ctx: AddonContext, matchedBonds: Map<string, Bond>): Promise<void> {
+    for (const [symbol, bond] of matchedBonds) {
+        // Fetch existing quotes for this symbol to avoid duplicates
+        let existingQuotes: Set<string>;
+        try {
+            const quotes = await ctx.api.quotes.getHistory(symbol);
+            // Create a set of existing quote dates for quick lookup
+            existingQuotes = new Set(quotes.map((q: any) => new Date(q.timestamp).toDateString()));
+        } catch (error) {
+            // If fetching fails, assume no existing quotes
+            console.warn(`Could not fetch existing quotes for ${symbol}:`, error);
+            existingQuotes = new Set();
+        }
+
+        // Get all bond values (daily prices from start to end)
+        const values = bond.getValues();
+
+        // Create a quote for each day from initial date to buyout date
+        for (let dayIndex = 0; dayIndex < values.length; dayIndex++) {
+            const price = values[dayIndex];
+            
+            // Calculate the date for this value
+            const quoteDate = new Date(bond.initialDate);
+            quoteDate.setDate(quoteDate.getDate() + dayIndex);
+
+            // Skip if quote already exists for this date
+            const quoteDateString = quoteDate.toDateString();
+            if (existingQuotes.has(quoteDateString)) {
+                continue;
+            }
+
+            // Create quote object for the API
+            const quote = {
+                id: `${symbol}-${quoteDate.toISOString()}`,
+                createdAt: quoteDate.toISOString(),
+                dataSource: "MANUAL",
+                timestamp: quoteDate.toISOString(),
+                symbol: symbol,
+                open: price,
+                high: price,
+                low: price,
+                volume: 0,
+                close: price,
+                adjclose: price,
+                currency: "PLN"
+            };
+
+            await ctx.api.quotes.update(symbol, quote);
+        }
+    }
 }
 
 export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
@@ -139,7 +188,7 @@ export const PolishBondsPriceSetter = ({ctx}: PolishBondsPriceSetterProps) => {
 
             // Step 5: Update
             updateStepStatus("update", StepStatus.IN_PROGRESS);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await updateBondPrices(ctx, matches);
             updateStepStatus("update", StepStatus.COMPLETED);
         } catch (error) {
             console.error("Error during process:", error);
