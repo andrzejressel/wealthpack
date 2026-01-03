@@ -30,7 +30,7 @@ export default defineConfig({
             },
         },
         outDir: "dist",
-        minify: "esbuild",
+        minify: false,
         sourcemap: false,
         watch: process.env.CI
             ? null
