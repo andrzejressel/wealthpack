@@ -1,6 +1,6 @@
 camelot-py==1.0.9
 pandas==3.0.0
 pandas-stubs==3.0.0.260204
-pypdf==6.6.2
+pypdf==6.7.0
 pypdfium2==5.4.0
 requests==2.32.5
